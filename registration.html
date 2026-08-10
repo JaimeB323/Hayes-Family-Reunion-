@@ -1,0 +1,246 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Registration | Hayes Family Reunion</title>
+    <meta name="description" content="Household registration prototype for the Hayes Family Reunion.">
+    <link rel="stylesheet" href="styles.css">
+  </head>
+  <body>
+    <a class="skip-link" href="#main">Skip to content</a>
+    <header class="site-header">
+      <nav class="nav-wrap" aria-label="Primary navigation">
+        <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="site-menu"><span class="menu-icon" aria-hidden="true"></span><span class="sr-only">Open menu</span></button>
+        <ul id="site-menu" class="site-menu">
+          <li><a href="index.html">Home</a></li>
+          <li><a href="location.html">Details</a></li>
+          <li><a href="itinerary.html">Itinerary</a></li>
+          <li><a href="updates.html">Latest Updates</a></li>
+          <li><a href="media.html">Family Photos</a></li>
+          <li><a href="registration.html">Registration</a></li>
+          <li><a href="contact.html">Contact</a></li>
+          <li><a class="nav-button" href="login.html">Member Login</a></li>
+        </ul>
+      </nav>
+    </header>
+
+    <main id="main">
+      <section class="hero short-hero">
+        <div class="hero-copy">
+          <p class="eyebrow">Prototype registration</p>
+          <h1>Registration</h1>
+          <p class="tagline">Use this page as a visual draft for the future reunion registration workflow.</p>
+        </div>
+        <figure class="hero-photo"><img src="assets/charleston-hero.webp" alt="Charleston street scene for the registration page"></figure>
+      </section>
+
+      <section class="section registration-layout" aria-label="Household registration form">
+        <form class="registration-form panel">
+          <div class="form-section">
+            <h2>Registration Information</h2>
+            <p class="note">Once Supabase is connected, this login will let your family return to view registration, payments and updates.</p>
+            <div class="form-grid two">
+              <label for="account-email">Login email
+                <input id="account-email" name="account-email" type="email" autocomplete="email" placeholder="name@example.com">
+              </label>
+              <label for="account-password">Create password
+                <input id="account-password" name="account-password" type="password" autocomplete="new-password" placeholder="Create a secure password">
+              </label>
+              <label for="account-password-confirm">Confirm password
+                <input id="account-password-confirm" name="account-password-confirm" type="password" autocomplete="new-password" placeholder="Re-enter password">
+              </label>
+            </div>
+          </div>
+
+          <div class="form-section">
+            <h2>Primary Contact</h2>
+            <div class="form-grid two">
+              <label for="household-name">Family name
+                <input id="household-name" name="household-name" type="text" autocomplete="organization" placeholder="Example: Thompson-Hayes Household">
+              </label>
+              <label for="primary-contact">Primary contact
+                <input id="primary-contact" name="primary-contact" type="text" autocomplete="name" placeholder="First and last name">
+              </label>
+              <label for="registration-email">Email
+                <input id="registration-email" name="registration-email" type="email" autocomplete="email" placeholder="name@example.com">
+              </label>
+              <label for="registration-phone">Phone
+                <input id="registration-phone" name="registration-phone" type="tel" autocomplete="tel" placeholder="(000) 000-0000">
+              </label>
+              <label for="arrival-day">Expected arrival
+                <select id="arrival-day" name="arrival-day">
+                  <option>To be confirmed</option>
+                  <option>Friday</option>
+                  <option>Saturday</option>
+                  <option>Sunday</option>
+                </select>
+              </label>
+            </div>
+          </div>
+
+          <div class="form-section">
+            <h2>Family Members</h2>
+            <p class="note">Prototype rows. Future versions can let families add or remove members securely.</p>
+            <div class="attendee-list">
+              <div class="attendee-row">
+                <label for="attendee-1">Name<input id="attendee-1" name="attendee-1" type="text" placeholder="Family member name"></label>
+                <label for="age-1">Category<select id="age-1" name="age-1"><option>Adult</option><option>Teen</option><option>Child</option><option>Under age 4</option></select></label>
+                <label for="shirt-1">T-shirt<select id="shirt-1" name="shirt-1"><option>Medium</option><option>Small</option><option>Large</option><option>XL</option><option>Youth Medium</option><option>No shirt</option></select></label>
+              </div>
+              <div class="attendee-row">
+                <label for="attendee-2">Name<input id="attendee-2" name="attendee-2" type="text" placeholder="Family member name"></label>
+                <label for="age-2">Category<select id="age-2" name="age-2"><option>Adult</option><option>Teen</option><option>Child</option><option>Under age 4</option></select></label>
+                <label for="shirt-2">T-shirt<select id="shirt-2" name="shirt-2"><option>Large</option><option>Small</option><option>Medium</option><option>XL</option><option>Youth Medium</option><option>No shirt</option></select></label>
+              </div>
+              <button class="button primary" type="button" data-prototype-alert="Adding more attendee rows will be available in a future version.">Add Another Family Member</button>
+            </div>
+          </div>
+
+          <div class="form-section">
+            <h2>Registration</h2>
+            <div class="table-wrap activity-registration-table">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Activity</th>
+                    <th>Cost</th>
+                    <th>Quantity</th>
+                    <th>Register</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>Adult Registration</td>
+                    <td>TBD</td>
+                    <td><input type="number" name="adult-registration-quantity" min="0" value="0" aria-label="Adult Registration quantity"></td>
+                    <td><label><input type="checkbox" name="registration" value="adult-registration"> Add</label></td>
+                  </tr>
+                  <tr>
+                    <td>Youth Registration</td>
+                    <td>TBD</td>
+                    <td><input type="number" name="youth-registration-quantity" min="0" value="0" aria-label="Youth Registration quantity"></td>
+                    <td><label><input type="checkbox" name="registration" value="youth-registration"> Add</label></td>
+                  </tr>
+                </tbody>
+                <tfoot>
+                  <tr>
+                    <td>Total</td>
+                    <td>TBD</td>
+                    <td colspan="2">Calculated after selections are finalized</td>
+                  </tr>
+                </tfoot>
+              </table>
+            </div>
+          </div>
+
+          <div class="form-section">
+            <h2>Activities</h2>
+            <div class="table-wrap activity-registration-table">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Activity</th>
+                    <th>Cost</th>
+                    <th>Quantity</th>
+                    <th>Register</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>Friday Welcome Reception</td>
+                    <td>TBD</td>
+                    <td><input type="number" name="welcome-quantity" min="0" value="0" aria-label="Friday Welcome Reception quantity"></td>
+                    <td><label><input type="checkbox" name="activity" value="welcome"> Add</label></td>
+                  </tr>
+                  <tr>
+                    <td>Saturday Breakfast and Heritage Program</td>
+                    <td>TBD</td>
+                    <td><input type="number" name="breakfast-quantity" min="0" value="0" aria-label="Saturday Breakfast and Heritage Program quantity"></td>
+                    <td><label><input type="checkbox" name="activity" value="breakfast"> Add</label></td>
+                  </tr>
+                  <tr>
+                    <td>Saturday Picnic and Activities</td>
+                    <td>TBD</td>
+                    <td><input type="number" name="picnic-quantity" min="0" value="0" aria-label="Saturday Picnic and Activities quantity"></td>
+                    <td><label><input type="checkbox" name="activity" value="picnic"> Add</label></td>
+                  </tr>
+                  <tr>
+                    <td>Celebration Dinner</td>
+                    <td>TBD</td>
+                    <td><input type="number" name="dinner-quantity" min="0" value="0" aria-label="Celebration Dinner quantity"></td>
+                    <td><label><input type="checkbox" name="activity" value="dinner"> Add</label></td>
+                  </tr>
+                  <tr>
+                    <td>Sunday Worship and Farewell Brunch</td>
+                    <td>TBD</td>
+                    <td><input type="number" name="worship-quantity" min="0" value="0" aria-label="Sunday Worship and Farewell Brunch quantity"></td>
+                    <td><label><input type="checkbox" name="activity" value="worship"> Add</label></td>
+                  </tr>
+                </tbody>
+                <tfoot>
+                  <tr>
+                    <td>Total</td>
+                    <td>TBD</td>
+                    <td colspan="2">Calculated after selections are finalized</td>
+                  </tr>
+                </tfoot>
+              </table>
+            </div>
+          </div>
+
+          <div class="form-section">
+            <h2>Estimated Costs</h2>
+            <p class="note">Demonstration pricing only.</p>
+            <div class="table-wrap estimated-cost-table">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Cost Bucket</th>
+                    <th>Estimated Cost</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr><td>Registration</td><td>TBD</td></tr>
+                  <tr><td>Activities</td><td>TBD</td></tr>
+                </tbody>
+                <tfoot>
+                  <tr><td>Sample household total</td><td>$640</td></tr>
+                </tfoot>
+              </table>
+            </div>
+          </div>
+
+          <div class="form-section">
+            <h2>Special Request</h2>
+            <label for="accessibility-needs">Dietary, accessibility or family notes
+              <textarea id="accessibility-needs" name="accessibility-needs" rows="5" placeholder="Share any needs the committee should plan for."></textarea>
+            </label>
+          </div>
+
+          <div class="acknowledgment">
+            <label><input type="checkbox" name="demo-acknowledgment"> I understand this prototype does not submit registration or payment information.</label>
+          </div>
+
+          <div class="button-row">
+            <button class="button primary" type="submit">Submit Prototype Registration</button>
+            <a class="button secondary" href="login.html">Go to Member Login</a>
+          </div>
+        </form>
+
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="footer-main">
+        <img class="footer-logo" src="assets/hayes-family-reunion-logo.svg" alt="Hayes Family Reunion">
+        <div class="footer-details">
+          <p>August 31 - September 3, 2027</p>
+          <p><strong>Charleston, SC</strong></p>
+        </div>
+      </div>
+    </footer>
+
+    <script src="script.js"></script>
+  </body>
+</html>

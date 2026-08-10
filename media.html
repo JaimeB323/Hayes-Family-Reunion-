@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Family Photos | Hayes Family Reunion</title>
+    <meta name="description" content="Photo gallery and family legacy media prototype for the Hayes Family Reunion.">
+    <link rel="stylesheet" href="styles.css">
+  </head>
+  <body>
+    <a class="skip-link" href="#main">Skip to content</a>
+    <header class="site-header">
+      <nav class="nav-wrap" aria-label="Primary navigation">
+        <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="site-menu"><span class="menu-icon" aria-hidden="true"></span><span class="sr-only">Open menu</span></button>
+        <ul id="site-menu" class="site-menu">
+          <li><a href="index.html">Home</a></li>
+          <li><a href="location.html">Details</a></li>
+          <li><a href="itinerary.html">Itinerary</a></li>
+          <li><a href="updates.html">Latest Updates</a></li>
+          <li><a href="media.html">Family Photos</a></li>
+          <li><a href="registration.html">Registration</a></li>
+          <li><a href="contact.html">Contact</a></li>
+          <li><a class="nav-button" href="login.html">Member Login</a></li>
+        </ul>
+      </nav>
+    </header>
+    <main id="main">
+      <section class="hero short-hero">
+        <div class="hero-copy">
+          <p class="eyebrow">Family Photos</p>
+          <h1>Family Memories</h1>
+          <p class="tagline">A family scrapbook for reunion photos, historical images, family stories and messages from every branch of the family.</p>
+        </div>
+        <figure class="hero-photo"><img src="assets/charleston-hero.webp" alt="Charleston street scene used as a reunion media placeholder"></figure>
+      </section>
+      <section class="section instagram-section" aria-labelledby="instagram-title">
+        <div class="section-heading">
+          <p class="eyebrow">Instagram feed preview</p>
+          <h2 id="instagram-title">Instagram</h2>
+          <p class="lead">Sample posts are shown for now so the committee can preview how the connected Instagram feed will look.</p>
+        </div>
+        <div class="instagram-grid" aria-label="Sample Instagram feed cards">
+          <article class="instagram-card">
+            <div class="instagram-photo" role="img" aria-label="Sample Instagram post showing Charleston streets"></div>
+            <div class="instagram-copy">
+              <strong>@hayesfamilyreunion</strong>
+              <p>Charleston is calling. Save the date and start planning your reunion weekend.</p>
+            </div>
+          </article>
+          <article class="instagram-card">
+            <div class="instagram-photo" role="img" aria-label="Sample Instagram post showing a family photo placeholder"></div>
+            <div class="instagram-copy">
+              <strong>@hayesfamilyreunion</strong>
+              <p>Share a favorite family memory as we get ready to gather in 2027.</p>
+            </div>
+          </article>
+          <article class="instagram-card">
+            <div class="instagram-photo" role="img" aria-label="Sample Instagram post showing reunion details"></div>
+            <div class="instagram-copy">
+              <strong>@hayesfamilyreunion</strong>
+              <p>Committee updates, reminders and reunion highlights will appear here.</p>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <section class="section scrapbook-section" aria-labelledby="photos-title">
+        <div class="section-heading">
+          <p class="eyebrow">Hayes Reunion 2027</p>
+          <h2 id="photos-title">Family Scrapbook</h2>
+          <a class="button small photo-submit-link" href="submit-photos.html">Submit Photos</a>
+        </div>
+        <div class="scrapbook-grid">
+          <figure class="scrapbook-card tilt-left">
+            <div class="scrapbook-photo" role="img" aria-label="Placeholder for previous reunion photographs">Previous Reunions</div>
+            <figcaption><strong>Previous reunions</strong><span>Gatherings, group photos and favorite weekend memories.</span></figcaption>
+          </figure>
+          <figure class="scrapbook-card">
+            <div class="scrapbook-photo" role="img" aria-label="Placeholder for family elder photographs">Family Elders</div>
+            <figcaption><strong>Family elders</strong><span>Photos and stories honoring the generations who shaped us.</span></figcaption>
+          </figure>
+          <figure class="scrapbook-card tilt-right">
+            <div class="scrapbook-photo" role="img" aria-label="Placeholder for historical Hayes family photographs">Historical Photos</div>
+            <figcaption><strong>Historical photographs</strong><span>Archives, milestones and family history moments.</span></figcaption>
+          </figure>
+          <figure class="scrapbook-card">
+            <div class="scrapbook-photo" role="img" aria-label="Placeholder for new generation family photographs">New Generations</div>
+            <figcaption><strong>New generations</strong><span>Children, cousins and new family branches growing forward.</span></figcaption>
+          </figure>
+        </div>
+      </section>
+    </main>
+    <footer class="site-footer">
+      <div class="footer-main">
+        <img class="footer-logo" src="assets/hayes-family-reunion-logo.svg" alt="Hayes Family Reunion">
+        <div class="footer-details">
+          <p>August 31 - September 3, 2027</p>
+          <p><strong>Charleston, SC</strong></p>
+        </div>
+      </div>
+    </footer>
+    <script src="script.js"></script>
+  </body>
+</html>

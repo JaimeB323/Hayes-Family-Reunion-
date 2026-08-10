@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Committee Dashboard Prototype | Hayes Family Reunion</title>
+    <meta name="description" content="Fictional committee dashboard prototype for the Hayes Family Reunion.">
+    <link rel="stylesheet" href="styles.css">
+  </head>
+  <body>
+    <a class="skip-link" href="#main">Skip to content</a>
+    <header class="site-header">
+      <nav class="nav-wrap" aria-label="Primary navigation">
+        <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="site-menu"><span class="menu-icon" aria-hidden="true"></span><span class="sr-only">Open menu</span></button>
+        <ul id="site-menu" class="site-menu">
+          <li><a href="index.html">Home</a></li>
+          <li><a href="location.html">Details</a></li>
+          <li><a href="itinerary.html">Itinerary</a></li>
+          <li><a href="updates.html">Latest Updates</a></li>
+          <li><a href="media.html">Family Photos</a></li>
+          <li><a href="registration.html">Registration</a></li>
+          <li><a href="contact.html">Contact</a></li>
+          <li><a class="nav-button" href="login.html">Member Login</a></li>
+        </ul>
+      </nav>
+    </header>
+    <main id="main" class="dashboard-page">
+      <section class="dashboard-hero">
+        <p class="eyebrow">Committee preview | demonstration data only</p>
+        <h1>Committee Dashboard Prototype</h1>
+        <p class="lead">This preview is intentionally linked only from the footer for testing. All totals, names and payments below are fictional.</p>
+      </section>
+
+      <section class="stats-grid" aria-label="Committee totals">
+        <article><span>Total households</span><strong>42</strong></article>
+        <article><span>Total attendees</span><strong>168</strong></article>
+        <article><span>Amount collected</span><strong>$18,420</strong></article>
+        <article><span>Outstanding balances</span><strong>$6,180</strong></article>
+        <article><span>Paid households</span><strong>27</strong></article>
+        <article><span>Partially paid</span><strong>11</strong></article>
+        <article><span>Unpaid households</span><strong>4</strong></article>
+      </section>
+
+      <section class="dashboard-grid">
+        <article class="panel span-2">
+          <div class="panel-head">
+            <h2>Household Payments</h2>
+            <div class="filter-row" aria-label="Search and filter controls">
+              <label for="search">Search</label>
+              <input id="search" type="search" placeholder="Household name">
+              <label for="status">Status</label>
+              <select id="status"><option>All statuses</option><option>Paid</option><option>Partial</option><option>Unpaid</option></select>
+            </div>
+          </div>
+          <div class="button-row">
+            <button class="button secondary" type="button" data-prototype-alert="Report export will be connected in a future committee version.">Export Report</button>
+            <button class="button gold" type="button" data-prototype-alert="Manual payment entry will require committee authentication in a future version.">Add Manual Payment</button>
+            <button class="button primary" type="button" data-prototype-alert="Payment reminders can later connect through Gmail or another approved email service.">Send Payment Reminder</button>
+          </div>
+          <div class="table-wrap">
+            <table>
+              <thead><tr><th>Household</th><th>Attendees</th><th>Total</th><th>Paid</th><th>Balance</th><th>Status</th></tr></thead>
+              <tbody>
+                <tr><td>Thompson-Hayes</td><td>6</td><td>$640</td><td>$400</td><td>$240</td><td>Partial</td></tr>
+                <tr><td>Williams-Hayes</td><td>4</td><td>$520</td><td>$520</td><td>$0</td><td>Paid</td></tr>
+                <tr><td>Johnson-Hayes</td><td>3</td><td>$355</td><td>$0</td><td>$355</td><td>Unpaid</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </article>
+
+        <article class="panel">
+          <h2>Activity Totals</h2>
+          <ul class="metric-list">
+            <li><span>Welcome Reception</span><strong>151</strong></li>
+            <li><span>Family Picnic</span><strong>168</strong></li>
+            <li><span>Celebration Dinner</span><strong>139</strong></li>
+            <li><span>Farewell Brunch</span><strong>118</strong></li>
+          </ul>
+        </article>
+
+        <article class="panel">
+          <h2>T-Shirt Order Totals</h2>
+          <ul class="metric-list">
+            <li><span>Youth sizes</span><strong>34</strong></li>
+            <li><span>Small</span><strong>22</strong></li>
+            <li><span>Medium</span><strong>48</strong></li>
+            <li><span>Large and up</span><strong>64</strong></li>
+          </ul>
+        </article>
+
+        <article class="panel span-2">
+          <h2>Recent Payments</h2>
+          <div class="table-wrap">
+            <table>
+              <thead><tr><th>Date</th><th>Household</th><th>Amount</th><th>Method</th></tr></thead>
+              <tbody>
+                <tr><td>Demo date</td><td>Williams-Hayes</td><td>$520</td><td>Prototype card</td></tr>
+                <tr><td>Demo date</td><td>Thompson-Hayes</td><td>$150</td><td>Prototype card</td></tr>
+                <tr><td>Demo date</td><td>Brooks-Hayes</td><td>$300</td><td>Prototype check</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </article>
+      </section>
+    </main>
+    <footer class="site-footer">
+      <div class="footer-main">
+        <img class="footer-logo" src="assets/hayes-family-reunion-logo.svg" alt="Hayes Family Reunion">
+        <div class="footer-details">
+          <p>August 31 - September 3, 2027</p>
+          <p><strong>Charleston, SC</strong></p>
+        </div>
+      </div>
+    </footer>
+    <script src="script.js"></script>
+  </body>
+</html>

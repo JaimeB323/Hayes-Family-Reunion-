@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Submit Photos | Hayes Family Reunion</title>
+    <meta name="description" content="Submit family photos and messages for the Hayes Family Reunion family photo page.">
+    <link rel="stylesheet" href="styles.css">
+  </head>
+  <body>
+    <a class="skip-link" href="#main">Skip to content</a>
+    <header class="site-header">
+      <nav class="nav-wrap" aria-label="Primary navigation">
+        <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="site-menu"><span class="menu-icon" aria-hidden="true"></span><span class="sr-only">Open menu</span></button>
+        <ul id="site-menu" class="site-menu">
+          <li><a href="index.html">Home</a></li>
+          <li><a href="location.html">Details</a></li>
+          <li><a href="itinerary.html">Itinerary</a></li>
+          <li><a href="updates.html">Latest Updates</a></li>
+          <li><a href="media.html">Family Photos</a></li>
+          <li><a href="registration.html">Registration</a></li>
+          <li><a href="contact.html">Contact</a></li>
+          <li><a class="nav-button" href="login.html">Member Login</a></li>
+        </ul>
+      </nav>
+    </header>
+    <main id="main">
+      <section class="hero short-hero">
+        <div class="hero-copy">
+          <p class="eyebrow">Family Photos</p>
+          <h1>Submit Photos</h1>
+          <p class="tagline">Share a family photo, caption and short message for the Hayes Family Reunion scrapbook.</p>
+        </div>
+        <figure class="hero-photo"><img src="assets/charleston-hero.webp" alt="Charleston street scene used as a reunion photo submission placeholder"></figure>
+      </section>
+
+      <section class="section submit-photos" aria-labelledby="submit-title">
+        <div class="section-heading">
+          <p class="eyebrow">Share your family</p>
+          <h2 id="submit-title">Add to the Family Photos</h2>
+          <p class="lead">This prototype shows the future upload experience. Once connected, submitted photos can appear automatically on the Family Photos page.</p>
+        </div>
+        <div class="split">
+          <form class="photo-submit-form contact-form" aria-label="Prototype family photo submission form">
+            <label for="family-name">Family or household name</label>
+            <input id="family-name" name="family-name" type="text" autocomplete="organization" placeholder="Example: The Thompson-Hayes Family">
+            <label for="submitter-email">Email</label>
+            <input id="submitter-email" name="submitter-email" type="email" autocomplete="email" placeholder="name@example.com">
+            <label for="photo-upload">Family photo</label>
+            <input id="photo-upload" name="photo-upload" type="file" accept="image/*">
+            <label for="photo-caption">Photo caption</label>
+            <input id="photo-caption" name="photo-caption" type="text" placeholder="Example: Cousins at the 2019 reunion">
+            <label for="family-message">Short message</label>
+            <textarea id="family-message" name="family-message" rows="5" maxlength="300" placeholder="Share a short message, memory or greeting for the family scrapbook."></textarea>
+            <button class="button primary" type="submit">Submit Photo</button>
+            <p class="note">Prototype only. Future versions can securely upload photos through Supabase and publish them automatically.</p>
+          </form>
+          <aside class="scrapbook-note">
+            <h3>Photo Tips</h3>
+            <ul class="check-list">
+              <li>Use family-friendly photos your household is comfortable sharing.</li>
+              <li>Add names, dates and locations when known.</li>
+              <li>Keep messages brief and joyful.</li>
+              <li>Historical photos can include captions or family stories.</li>
+            </ul>
+          </aside>
+        </div>
+      </section>
+    </main>
+    <footer class="site-footer">
+      <div class="footer-main">
+        <img class="footer-logo" src="assets/hayes-family-reunion-logo.svg" alt="Hayes Family Reunion">
+        <div class="footer-details">
+          <p>August 31 - September 3, 2027</p>
+          <p><strong>Charleston, SC</strong></p>
+        </div>
+      </div>
+    </footer>
+    <script src="script.js"></script>
+  </body>
+</html>

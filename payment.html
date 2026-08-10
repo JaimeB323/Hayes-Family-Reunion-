@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Submit Payment | Hayes Family Reunion</title>
+    <meta name="description" content="Prototype payment page for the Hayes Family Reunion member portal.">
+    <link rel="stylesheet" href="styles.css">
+  </head>
+  <body>
+    <a class="skip-link" href="#main">Skip to content</a>
+    <header class="site-header">
+      <nav class="nav-wrap" aria-label="Primary navigation">
+        <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="site-menu"><span class="menu-icon" aria-hidden="true"></span><span class="sr-only">Open menu</span></button>
+        <ul id="site-menu" class="site-menu">
+          <li><a href="index.html">Home</a></li>
+          <li><a href="location.html">Details</a></li>
+          <li><a href="itinerary.html">Itinerary</a></li>
+          <li><a href="updates.html">Latest Updates</a></li>
+          <li><a href="media.html">Family Photos</a></li>
+          <li><a href="registration.html">Registration</a></li>
+          <li><a href="contact.html">Contact</a></li>
+          <li><a class="nav-button" href="login.html">Member Login</a></li>
+        </ul>
+      </nav>
+    </header>
+    <main id="main">
+      <section class="hero short-hero">
+        <div class="hero-copy">
+          <p class="eyebrow">Member payment</p>
+          <h1>Submit Payment</h1>
+          <p class="tagline">Submit a payment confirmation for committee review and backend balance updates.</p>
+        </div>
+        <figure class="hero-photo"><img src="assets/charleston-hero.webp" alt="Charleston street scene for the payment page"></figure>
+      </section>
+
+      <section class="section registration-layout" aria-label="Prototype payment form">
+        <form class="payment-form panel">
+          <div class="form-section">
+            <h2>Payment Details</h2>
+            <div class="form-grid two">
+              <label for="payment-name">Family name
+                <input id="payment-name" name="payment-name" type="text" placeholder="Example: Thompson-Hayes Household">
+              </label>
+              <label for="payment-email">Email
+                <input id="payment-email" name="payment-email" type="email" placeholder="name@example.com">
+              </label>
+              <label for="payment-amount">Payment amount
+                <input id="payment-amount" name="payment-amount" type="text" placeholder="$240">
+              </label>
+              <label for="payment-method">Payment method
+                <select id="payment-method" name="payment-method">
+                  <option>Venmo</option>
+                  <option>Zelle</option>
+                </select>
+              </label>
+              <label for="payment-confirmation">Confirmation number or note
+                <input id="payment-confirmation" name="payment-confirmation" type="text" placeholder="Example: Venmo confirmation or Zelle note">
+              </label>
+            </div>
+          </div>
+          <div class="button-row">
+            <button class="button primary" type="submit">Submit Payment</button>
+            <a class="button secondary" href="member.html">Back to Member Portal</a>
+          </div>
+        </form>
+      </section>
+    </main>
+    <footer class="site-footer">
+      <div class="footer-main">
+        <img class="footer-logo" src="assets/hayes-family-reunion-logo.svg" alt="Hayes Family Reunion">
+        <div class="footer-details">
+          <p>August 31 - September 3, 2027</p>
+          <p><strong>Charleston, SC</strong></p>
+        </div>
+      </div>
+    </footer>
+    <script src="script.js"></script>
+  </body>
+</html>

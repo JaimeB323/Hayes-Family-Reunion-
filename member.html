@@ -1,0 +1,111 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Member Portal Prototype | Hayes Family Reunion</title>
+    <meta name="description" content="Fictional member portal prototype for the Hayes Family Reunion.">
+    <link rel="stylesheet" href="styles.css">
+  </head>
+  <body>
+    <a class="skip-link" href="#main">Skip to content</a>
+    <header class="site-header">
+      <nav class="nav-wrap" aria-label="Primary navigation">
+        <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="site-menu"><span class="menu-icon" aria-hidden="true"></span><span class="sr-only">Open menu</span></button>
+        <ul id="site-menu" class="site-menu">
+          <li><a href="index.html">Home</a></li>
+          <li><a href="location.html">Details</a></li>
+          <li><a href="itinerary.html">Itinerary</a></li>
+          <li><a href="updates.html">Latest Updates</a></li>
+          <li><a href="media.html">Family Photos</a></li>
+          <li><a href="registration.html">Registration</a></li>
+          <li><a href="contact.html">Contact</a></li>
+          <li><a class="nav-button" href="login.html">Member Login</a></li>
+        </ul>
+      </nav>
+    </header>
+    <main id="main">
+      <section class="hero short-hero">
+        <div class="hero-copy">
+          <p class="eyebrow">Demonstration data only</p>
+          <h1>Member Portal</h1>
+          <p class="tagline">A secure household dashboard preview for registration, payments and reunion details.</p>
+        </div>
+        <figure class="hero-photo"><img src="assets/charleston-hero.webp" alt="Charleston street scene for the member portal"></figure>
+      </section>
+
+      <section class="section dashboard-grid member-dashboard" aria-label="Member account summary">
+        <article class="panel member-summary">
+          <h2>Marsha Hayes Thompson</h2>
+          <p class="note">Primary contact for this fictional household.</p>
+          <div class="mini-grid">
+            <span>Total Registered<strong>6</strong></span>
+            <span>Status<strong>Confirmed</strong></span>
+            <span id="balance">Grand total<strong>$640</strong></span>
+            <span>Amount paid<strong>$400</strong></span>
+            <span>Remaining balance<strong>$240</strong></span>
+          </div>
+          <div id="payment" class="button-row">
+            <a class="button gold" href="payment.html">Submit Payment</a>
+            <button class="button secondary" type="button" data-prototype-alert="Receipt downloads are placeholders in this prototype.">Download Receipt</button>
+          </div>
+        </article>
+
+        <article class="panel member-registered">
+          <h2>Registered Member</h2>
+          <div class="table-wrap">
+            <table>
+              <thead><tr><th>First Name</th><th>Last Name</th><th>Registration Type</th><th>T-Shirt Size</th></tr></thead>
+              <tbody>
+                <tr><td>Marsha</td><td>Hayes Thompson</td><td>Adult</td><td>Adult Medium</td></tr>
+                <tr><td>Andre</td><td>Thompson</td><td>Adult</td><td>Adult Large</td></tr>
+                <tr><td>Janelle</td><td>Thompson</td><td>Youth</td><td>Youth Medium</td></tr>
+                <tr><td>Miles</td><td>Thompson</td><td>Youth</td><td>Youth Small</td></tr>
+                <tr><td>Evelyn</td><td>Hayes</td><td>Adult</td><td>Adult Large</td></tr>
+                <tr><td>Caleb</td><td>Thompson</td><td>Youth</td><td>No shirt</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </article>
+
+        <article class="panel member-activities">
+          <h2>Activities Purchased</h2>
+          <div class="table-wrap">
+            <table>
+              <thead><tr><th>Activity Name</th><th>Date</th><th>Time</th><th>Location</th><th>Quantity</th></tr></thead>
+              <tbody>
+                <tr><td>Welcome Reception</td><td>August 31, 2027</td><td>TBD</td><td>TBD</td><td>5</td></tr>
+                <tr><td>Family Picnic</td><td>September 2, 2027</td><td>TBD</td><td>TBD</td><td>6</td></tr>
+                <tr><td>Celebration Dinner</td><td>September 2, 2027</td><td>TBD</td><td>TBD</td><td>5</td></tr>
+                <tr><td>Farewell Brunch</td><td>September 3, 2027</td><td>TBD</td><td>TBD</td><td>6</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </article>
+
+        <article class="panel member-payments">
+          <h2>Payment History</h2>
+          <div class="table-wrap">
+            <table>
+              <thead><tr><th>Date</th><th>Description</th><th>Amount</th><th>Status</th></tr></thead>
+              <tbody>
+                <tr><td>Demo date</td><td>Initial household deposit</td><td>$250</td><td>Demo paid</td></tr>
+                <tr><td>Demo date</td><td>Second installment</td><td>$150</td><td>Demo paid</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </article>
+      </section>
+    </main>
+    <footer class="site-footer">
+      <div class="footer-main">
+        <img class="footer-logo" src="assets/hayes-family-reunion-logo.svg" alt="Hayes Family Reunion">
+        <div class="footer-details">
+          <p>August 31 - September 3, 2027</p>
+          <p><strong>Charleston, SC</strong></p>
+        </div>
+      </div>
+    </footer>
+    <script src="script.js"></script>
+  </body>
+</html>

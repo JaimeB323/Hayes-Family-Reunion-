@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Member Login | Hayes Family Reunion</title>
+    <meta name="description" content="Prototype member login page for the Hayes Family Reunion.">
+    <link rel="stylesheet" href="styles.css">
+  </head>
+  <body>
+    <a class="skip-link" href="#main">Skip to content</a>
+    <header class="site-header">
+      <nav class="nav-wrap" aria-label="Primary navigation">
+        <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="site-menu"><span class="menu-icon" aria-hidden="true"></span><span class="sr-only">Open menu</span></button>
+        <ul id="site-menu" class="site-menu">
+          <li><a href="index.html">Home</a></li>
+          <li><a href="location.html">Details</a></li>
+          <li><a href="itinerary.html">Itinerary</a></li>
+          <li><a href="updates.html">Latest Updates</a></li>
+          <li><a href="media.html">Family Photos</a></li>
+          <li><a href="registration.html">Registration</a></li>
+          <li><a href="contact.html">Contact</a></li>
+          <li><a class="nav-button" href="login.html">Member Login</a></li>
+        </ul>
+      </nav>
+    </header>
+    <main id="main" class="dashboard-page">
+      <section class="dashboard-hero">
+        <p class="eyebrow">Member login</p>
+        <h1>Household Account Access</h1>
+        <p class="lead">Use the sample credentials below to preview the Member Portal. Supabase will handle secure accounts later.</p>
+      </section>
+
+      <section class="panel member-login-panel" aria-labelledby="member-login-title">
+        <div>
+          <p class="eyebrow">Prototype access</p>
+          <h2 id="member-login-title">Sign In</h2>
+          <p class="note">Dummy credentials: email <strong>family@example.com</strong>, password <strong>Hayes2027!</strong></p>
+        </div>
+        <form class="member-login-form" aria-label="Prototype member login form">
+          <label for="member-email">Email
+            <input id="member-email" name="member-email" type="email" autocomplete="email" placeholder="family@example.com" value="family@example.com">
+          </label>
+          <label for="member-password">Password
+            <input id="member-password" name="member-password" type="password" autocomplete="current-password" placeholder="Hayes2027!" value="Hayes2027!">
+          </label>
+          <button class="button primary" type="submit">Login</button>
+          <button class="button secondary" type="button" data-prototype-alert="Password reset will be available after Supabase authentication is connected.">Forgot Password</button>
+        </form>
+      </section>
+    </main>
+    <footer class="site-footer">
+      <div class="footer-main">
+        <img class="footer-logo" src="assets/hayes-family-reunion-logo.svg" alt="Hayes Family Reunion">
+        <div class="footer-details">
+          <p>August 31 - September 3, 2027</p>
+          <p><strong>Charleston, SC</strong></p>
+        </div>
+      </div>
+    </footer>
+    <script src="script.js"></script>
+  </body>
+</html>
