@@ -232,6 +232,103 @@ h1, h2, h3, p { overflow-wrap: anywhere; }
   margin-right: auto;
   margin-top: clamp(0.9rem, 2.5vh, 1.25rem);
 }
+.save-date-landing {
+  padding: clamp(1rem, 3vw, 2rem);
+  background: #efe6c9;
+}
+.save-date-landing::after {
+  background:
+    linear-gradient(rgba(245, 230, 190, 0.18), rgba(19, 47, 43, 0.58)),
+    linear-gradient(120deg, rgba(238, 100, 68, 0.14), rgba(183, 216, 214, 0.22)),
+    radial-gradient(circle at 50% 36%, rgba(183, 216, 214, 0.5), transparent 35%);
+}
+.save-date-landing .hero-photo img {
+  filter: saturate(0.8) contrast(1.05) sepia(0.22);
+}
+.landing-poster {
+  width: min(760px, calc(100vw - 2rem));
+  padding: clamp(1.35rem, 4vw, 2.5rem);
+  color: #113a3a;
+  background:
+    linear-gradient(rgba(244, 239, 228, 0.78), rgba(244, 239, 228, 0.7)),
+    repeating-linear-gradient(0deg, rgba(19, 47, 43, 0.06) 0 1px, transparent 1px 8px);
+  border: 5px solid #efe6c9;
+  outline: 3px solid rgba(183, 216, 214, 0.9);
+  outline-offset: -18px;
+  box-shadow: 0 24px 60px rgba(19, 47, 43, 0.35);
+}
+.landing-poster::before,
+.landing-poster::after {
+  content: "";
+  display: block;
+  height: 3px;
+  margin: 0 auto clamp(0.5rem, 2vw, 1rem);
+  width: min(560px, 84%);
+  background: #b7d8d6;
+}
+.landing-poster::after {
+  margin: clamp(0.65rem, 2vw, 1rem) auto 0;
+  background: #c99a4a;
+}
+.poster-family {
+  margin: 0 0 0.2rem;
+  color: #113a3a;
+  font-size: clamp(0.9rem, 2vw, 1.2rem);
+  font-weight: 900;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+.save-date-landing h1 {
+  color: #e76346;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: clamp(4.1rem, 15vw, 9.8rem);
+  font-style: italic;
+  font-weight: 900;
+  line-height: 0.78;
+  letter-spacing: 0;
+  text-shadow: 2px 2px 0 rgba(244, 239, 228, 0.9);
+}
+.poster-ribbon {
+  display: inline-block;
+  margin: 0.25rem auto 0;
+  padding: 0.32rem 1.25rem;
+  color: #f4efe4;
+  background: #1f6670;
+  font-size: clamp(0.85rem, 2.2vw, 1.25rem);
+  font-weight: 900;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  transform: rotate(-3deg);
+}
+.poster-save {
+  margin: clamp(1rem, 3vw, 1.5rem) 0 0;
+  color: #113a3a;
+  font-size: clamp(2.4rem, 7vw, 5rem);
+  font-weight: 900;
+  line-height: 0.9;
+  text-transform: uppercase;
+}
+.save-date-landing .save-date-date {
+  margin: 0.65rem 0 0;
+  color: #c99a4a;
+  font-size: clamp(1.35rem, 3.5vw, 2.35rem);
+  font-weight: 900;
+}
+.save-date-landing .tagline {
+  margin-top: 0.25rem;
+  color: #113a3a;
+  font-size: clamp(0.95rem, 2.5vw, 1.3rem);
+  font-weight: 900;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+.save-date-landing .countdown span {
+  background: rgba(19, 47, 43, 0.78);
+}
+.save-date-landing .note {
+  color: #113a3a;
+  font-weight: 900;
+}
 .hero::after {
   content: "";
   position: absolute;
@@ -1523,6 +1620,24 @@ th {
   }
   .short-hero {
     min-height: 420px;
+  }
+  .save-date-landing {
+    padding: 0.75rem;
+  }
+  .landing-poster {
+    width: min(100%, calc(100vw - 1.5rem));
+    padding: 1.25rem 0.8rem;
+    outline-offset: -10px;
+  }
+  .save-date-landing h1 {
+    font-size: clamp(3.2rem, 18vw, 5rem);
+  }
+  .poster-ribbon {
+    max-width: 92%;
+    letter-spacing: 0.18em;
+  }
+  .poster-save {
+    font-size: clamp(2rem, 12vw, 3rem);
   }
   .save-date-hero {
     min-height: 640px;

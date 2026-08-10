@@ -180,7 +180,7 @@ let border = NSBezierPath(rect: card)
 border.lineWidth = 2
 border.stroke()
 
-drawText("09 | 01-03 | 2027", rect: NSRect(x: card.minX, y: card.maxY - 88, width: card.width, height: 42), font: NSFont(name: "Avenir Next Medium", size: 36) ?? NSFont.systemFont(ofSize: 36), color: NSColor.black, kern: 4)
+drawText("08 | 31 - 09 | 03 | 2028", rect: NSRect(x: card.minX, y: card.maxY - 88, width: card.width, height: 42), font: NSFont(name: "Avenir Next Medium", size: 36) ?? NSFont.systemFont(ofSize: 36), color: NSColor.black, kern: 4)
 
 drawCurvedText("SAVE the DATE", center: NSPoint(x: card.midX, y: card.maxY - 435), radius: 285, startAngle: 150, endAngle: 30, font: NSFont(name: "Avenir Next Regular", size: 46) ?? NSFont.systemFont(ofSize: 46), kern: 3)
 
@@ -193,7 +193,7 @@ drawLine(from: NSPoint(x: card.minX + 160, y: card.maxY - 850), to: NSPoint(x: c
 drawText("Charleston, South Carolina", rect: NSRect(x: card.minX + 120, y: card.maxY - 965, width: card.width - 240, height: 54), font: NSFont(name: "Georgia Italic", size: 38) ?? NSFont.systemFont(ofSize: 38), color: NSColor.black)
 
 drawText("- MORE INFORMATION TO COME -", rect: NSRect(x: card.minX + 120, y: card.maxY - 1088, width: card.width - 240, height: 34), font: NSFont(name: "Avenir Next Demi Bold", size: 22) ?? NSFont.boldSystemFont(ofSize: 22), color: NSColor.black, kern: 3)
-drawText("August 31 - September 3, 2027", rect: NSRect(x: card.minX + 120, y: card.maxY - 1140, width: card.width - 240, height: 34), font: NSFont(name: "Avenir Next Medium", size: 25) ?? NSFont.systemFont(ofSize: 25), color: NSColor.black, kern: 1.2)
+drawText("August 31 - September 3, 2028", rect: NSRect(x: card.minX + 120, y: card.maxY - 1140, width: card.width - 240, height: 34), font: NSFont(name: "Avenir Next Medium", size: 25) ?? NSFont.systemFont(ofSize: 25), color: NSColor.black, kern: 1.2)
 drawText("Honoring Our Legacy. Celebrating Our Family.", rect: NSRect(x: card.minX + 110, y: card.maxY - 1184, width: card.width - 220, height: 32), font: NSFont(name: "Avenir Next Medium", size: 23) ?? NSFont.systemFont(ofSize: 23), color: NSColor.black)
 drawText("Building Our Future.", rect: NSRect(x: card.minX + 120, y: card.maxY - 1223, width: card.width - 240, height: 30), font: NSFont(name: "Avenir Next Medium", size: 23) ?? NSFont.systemFont(ofSize: 23), color: NSColor.black)
 

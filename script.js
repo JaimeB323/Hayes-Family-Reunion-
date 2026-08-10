@@ -42,7 +42,7 @@ if (menuToggle && siteMenu) {
   });
 }
 
-const countdownTarget = new Date("2027-08-31T00:00:00-04:00").getTime();
+const countdownTarget = new Date("2028-08-31T00:00:00-04:00").getTime();
 const countdownParts = {
   days: document.querySelector("#days"),
   hours: document.querySelector("#hours"),
@@ -104,12 +104,12 @@ if (memberLoginForm) {
     const email = document.querySelector("#member-email")?.value.trim().toLowerCase();
     const password = document.querySelector("#member-password")?.value;
 
-    if ((!email && !password) || (email === "family@example.com" && password === "Hayes2027!")) {
+    if ((!email && !password) || (email === "family@example.com" && password === "Hayes2028!")) {
       window.location.href = "member.html";
       return;
     }
 
-    alert("Use the sample login: family@example.com / Hayes2027!");
+    alert("Use the sample login: family@example.com / Hayes2028!");
   });
 }
 

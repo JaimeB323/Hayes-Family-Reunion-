@@ -134,7 +134,7 @@ drawText("Charleston, South Carolina", rect: NSRect(x: margin, y: 985, width: wi
 
 let datePill = NSRect(x: 410, y: 850, width: 780, height: 100)
 drawRoundedRect(datePill, radius: 10, fill: color(0xffffff, alpha: 0.16), stroke: color(0xffffff, alpha: 0.42), strokeWidth: 2)
-drawText("SEPTEMBER 1-3, 2027", rect: datePill.insetBy(dx: 24, dy: 25), font: NSFont.boldSystemFont(ofSize: 42), color: white, kern: 1)
+drawText("AUGUST 31 - SEPTEMBER 3, 2028", rect: datePill.insetBy(dx: 24, dy: 25), font: NSFont.boldSystemFont(ofSize: 42), color: white, kern: 1)
 
 let card = NSRect(x: margin, y: 144, width: width - margin * 2, height: 560)
 drawRoundedRect(card, radius: 10, fill: paper)
@@ -149,7 +149,7 @@ drawText("More details about lodging, activities, meals, and registration will b
 
 let detailX = detailPanel.minX + 42
 drawText("WHEN", rect: NSRect(x: detailX, y: detailPanel.maxY - 84, width: 300, height: 32), font: NSFont.boldSystemFont(ofSize: 23), color: orange, alignment: .left, kern: 1.2)
-drawText("Aug. 31 - Sept. 3,\n2027", rect: NSRect(x: detailX, y: detailPanel.maxY - 182, width: 310, height: 95), font: NSFont.boldSystemFont(ofSize: 42), color: white, alignment: .left, lineHeight: 46)
+drawText("Aug. 31 - Sept. 3,\n2028", rect: NSRect(x: detailX, y: detailPanel.maxY - 182, width: 310, height: 95), font: NSFont.boldSystemFont(ofSize: 42), color: white, alignment: .left, lineHeight: 46)
 drawText("WHERE", rect: NSRect(x: detailX, y: detailPanel.maxY - 254, width: 300, height: 32), font: NSFont.boldSystemFont(ofSize: 23), color: orange, alignment: .left, kern: 1.2)
 drawText("Charleston,\nSouth Carolina", rect: NSRect(x: detailX, y: detailPanel.maxY - 364, width: 320, height: 105), font: NSFont.boldSystemFont(ofSize: 38), color: white, alignment: .left, lineHeight: 43)
 drawText("THEME", rect: NSRect(x: detailX, y: detailPanel.minY + 82, width: 300, height: 32), font: NSFont.boldSystemFont(ofSize: 23), color: orange, alignment: .left, kern: 1.2)
