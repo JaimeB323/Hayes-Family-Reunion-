@@ -84,6 +84,7 @@ if (contactForm) {
 const registrationForm = document.querySelector(".registration-form");
 if (registrationForm) {
   registrationForm.addEventListener("submit", (event) => {
+    if (window.HayesSupabase?.configured) return;
     event.preventDefault();
     alert("This registration page is a prototype. Future versions can securely save household registration through Supabase.");
   });
@@ -92,6 +93,7 @@ if (registrationForm) {
 const paymentForm = document.querySelector(".payment-form");
 if (paymentForm) {
   paymentForm.addEventListener("submit", (event) => {
+    if (window.HayesSupabase?.configured) return;
     event.preventDefault();
     alert("This payment confirmation is a prototype. Future versions will save it for committee review, then the backend can mark it as received and update the member balance.");
   });
@@ -100,6 +102,7 @@ if (paymentForm) {
 const memberLoginForm = document.querySelector(".member-login-form");
 if (memberLoginForm) {
   memberLoginForm.addEventListener("submit", (event) => {
+    if (window.HayesSupabase?.configured) return;
     event.preventDefault();
     const email = document.querySelector("#member-email")?.value.trim().toLowerCase();
     const password = document.querySelector("#member-password")?.value;

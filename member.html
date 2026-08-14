@@ -34,16 +34,16 @@
         <figure class="hero-photo"><img src="assets/charleston-hero.webp" alt="Charleston street scene for the member portal"></figure>
       </section>
 
-      <section class="section dashboard-grid member-dashboard" aria-label="Member account summary">
+      <section class="section dashboard-grid member-dashboard" aria-label="Member account summary" data-member-dashboard>
         <article class="panel member-summary">
-          <h2>Marsha Hayes Thompson</h2>
-          <p class="note">Primary contact for this fictional household.</p>
+          <h2 data-member-name>Marsha Hayes Thompson</h2>
+          <p class="note" data-member-note>Primary contact for this fictional household.</p>
           <div class="mini-grid">
-            <span>Total Registered<strong>6</strong></span>
-            <span>Status<strong>Confirmed</strong></span>
-            <span id="balance">Grand total<strong>$640</strong></span>
-            <span>Amount paid<strong>$400</strong></span>
-            <span>Remaining balance<strong>$240</strong></span>
+            <span data-member-metric="totalRegistered">Total Registered<strong>6</strong></span>
+            <span data-member-metric="status">Status<strong>Confirmed</strong></span>
+            <span id="balance" data-member-metric="totalDue">Grand total<strong>$640</strong></span>
+            <span data-member-metric="paid">Amount paid<strong>$400</strong></span>
+            <span data-member-metric="balance">Remaining balance<strong>$240</strong></span>
           </div>
           <div id="payment" class="button-row">
             <a class="button gold" href="payment.html">Submit Payment</a>
@@ -56,7 +56,7 @@
           <div class="table-wrap">
             <table>
               <thead><tr><th>First Name</th><th>Last Name</th><th>Registration Type</th><th>T-Shirt Size</th></tr></thead>
-              <tbody>
+              <tbody data-member-activities>
                 <tr><td>Marsha</td><td>Hayes Thompson</td><td>Adult</td><td>Adult Medium</td></tr>
                 <tr><td>Andre</td><td>Thompson</td><td>Adult</td><td>Adult Large</td></tr>
                 <tr><td>Janelle</td><td>Thompson</td><td>Youth</td><td>Youth Medium</td></tr>
@@ -73,7 +73,7 @@
           <div class="table-wrap">
             <table>
               <thead><tr><th>Activity Name</th><th>Date</th><th>Time</th><th>Location</th><th>Quantity</th></tr></thead>
-              <tbody>
+              <tbody data-payment-history>
                 <tr><td>Welcome Reception</td><td>August 31, 2028</td><td>TBD</td><td>TBD</td><td>5</td></tr>
                 <tr><td>Family Picnic</td><td>September 2, 2028</td><td>TBD</td><td>TBD</td><td>6</td></tr>
                 <tr><td>Celebration Dinner</td><td>September 2, 2028</td><td>TBD</td><td>TBD</td><td>5</td></tr>
@@ -106,6 +106,10 @@
         </div>
       </div>
     </footer>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="js/supabase-config.js"></script>
+    <script src="js/supabase-client.js"></script>
+    <script src="js/member-dashboard.js"></script>
     <script src="script.js"></script>
   </body>
 </html>

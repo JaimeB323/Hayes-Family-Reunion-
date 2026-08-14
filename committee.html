@@ -24,7 +24,7 @@
         </ul>
       </nav>
     </header>
-    <main id="main" class="dashboard-page">
+    <main id="main" class="dashboard-page" data-committee-dashboard>
       <section class="dashboard-hero">
         <p class="eyebrow">Committee preview | demonstration data only</p>
         <h1>Committee Dashboard Prototype</h1>
@@ -42,6 +42,26 @@
       </section>
 
       <section class="dashboard-grid">
+        <article class="panel span-2">
+          <div class="panel-head">
+            <h2>Family Members</h2>
+            <div class="filter-row" aria-label="Member search controls">
+              <label for="member-search">Search</label>
+              <input id="member-search" type="search" placeholder="Name, household or email">
+              <label for="member-role">Role</label>
+              <select id="member-role"><option>All roles</option><option>member</option><option>admin</option></select>
+            </div>
+          </div>
+          <div class="table-wrap">
+            <table>
+              <thead><tr><th>Name</th><th>Household</th><th>Email</th><th>Role</th></tr></thead>
+              <tbody data-admin-members>
+                <tr><td>Marsha Hayes Thompson</td><td>Thompson-Hayes</td><td>family@example.com</td><td>member</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </article>
+
         <article class="panel span-2">
           <div class="panel-head">
             <h2>Household Payments</h2>
@@ -113,6 +133,10 @@
         </div>
       </div>
     </footer>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="js/supabase-config.js"></script>
+    <script src="js/supabase-client.js"></script>
+    <script src="js/committee-dashboard.js"></script>
     <script src="script.js"></script>
   </body>
 </html>
