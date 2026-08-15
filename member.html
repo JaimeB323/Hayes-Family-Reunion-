@@ -59,13 +59,21 @@
           </div>
         </article>
 
+        <article class="panel primary-account-holder">
+          <h2>Primary Account Holder</h2>
+          <p class="note">Complete your own attendee information so you are included in household registration and banquet meal counts.</p>
+          <div data-primary-account-holder>
+            <p>Loading primary account holder...</p>
+          </div>
+        </article>
+
         <article class="panel member-registered">
           <h2>Family Members</h2>
           <div class="table-wrap">
             <table>
-              <thead><tr><th>First Name</th><th>Last Name</th><th>Category</th><th>T-Shirt Size</th><th>Action</th></tr></thead>
+              <thead><tr><th>First Name</th><th>Last Name</th><th>Category</th><th>T-Shirt Size</th><th>Banquet Meal</th><th>Action</th></tr></thead>
               <tbody data-household-members>
-                <tr><td colspan="5">Loading registered family members...</td></tr>
+                <tr><td colspan="6">Loading registered family members...</td></tr>
               </tbody>
             </table>
           </div>
@@ -95,6 +103,14 @@
                   <option>Youth Medium</option>
                   <option>Youth Large</option>
                   <option>No shirt</option>
+                </select>
+              </label>
+              <label for="family-meal">Banquet Meal Choice
+                <select id="family-meal" name="family-meal">
+                  <option value="">Not selected</option>
+                  <option value="steak">Steak</option>
+                  <option value="chicken">Chicken</option>
+                  <option value="vegetarian">Vegetarian</option>
                 </select>
               </label>
             </div>
