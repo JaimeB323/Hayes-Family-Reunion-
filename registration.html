@@ -3,8 +3,8 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Registration | Hayes Family Reunion</title>
-    <meta name="description" content="Household registration for the Hayes Family Reunion.">
+    <title>Create an Account | Hayes Family Reunion</title>
+    <meta name="description" content="Create an account for the Hayes Family Reunion Member Portal.">
     <link rel="stylesheet" href="styles.css">
   </head>
   <body>
@@ -28,42 +28,21 @@
     <main id="main">
       <section class="hero short-hero">
         <div class="hero-copy">
-          <p class="eyebrow">Registration</p>
-          <h1>Registration</h1>
-          <p class="tagline">Create your household account, then manage family members and activities in the Member Portal.</p>
+          <p class="eyebrow">Member Portal</p>
+          <h1>Create an Account</h1>
+          <p class="tagline">Create your secure login, then complete your reunion registration in the Member Portal.</p>
         </div>
         <figure class="hero-photo"><img src="assets/charleston-hero.webp" alt="Charleston street scene for the registration page"></figure>
       </section>
 
-      <section class="section registration-layout" aria-label="Household registration form">
+      <section class="section registration-layout" aria-label="Create an account form">
         <form class="registration-form panel">
           <div class="form-section">
-            <h2>Household Account</h2>
-            <p class="note">Start with the primary account holder. After login, you can add family members and activities in the Member Portal.</p>
-            <div class="form-grid two">
-              <label for="household-name">Family / household name
-                <input id="household-name" name="household-name" type="text" autocomplete="organization" placeholder="Example: Thompson-Hayes Household" required>
-              </label>
-              <label for="primary-first-name">Primary contact first name
-                <input id="primary-first-name" name="primary-first-name" type="text" autocomplete="given-name" placeholder="First name" required>
-              </label>
-              <label for="primary-last-name">Primary contact last name
-                <input id="primary-last-name" name="primary-last-name" type="text" autocomplete="family-name" placeholder="Last name" required>
-              </label>
+            <h2>Account Login</h2>
+            <p class="note">After creating your account, sign in to add your household and reunion information.</p>
+            <div class="form-grid account-fields">
               <label for="account-email">Login email
                 <input id="account-email" name="account-email" type="email" autocomplete="email" placeholder="name@example.com" required>
-              </label>
-              <label for="registration-phone">Phone
-                <input id="registration-phone" name="registration-phone" type="tel" autocomplete="tel" placeholder="(000) 000-0000">
-              </label>
-              <label for="arrival-day">Expected arrival
-                <select id="arrival-day" name="arrival-day">
-                  <option value="">To be confirmed</option>
-                  <option value="August 31, 2028">August 31, 2028</option>
-                  <option value="September 1, 2028">September 1, 2028</option>
-                  <option value="September 2, 2028">September 2, 2028</option>
-                  <option value="September 3, 2028">September 3, 2028</option>
-                </select>
               </label>
               <label for="account-password">Create password
                 <input id="account-password" name="account-password" type="password" autocomplete="new-password" placeholder="Create a secure password" required>
@@ -74,16 +53,9 @@
             </div>
           </div>
 
-          <div class="form-section">
-            <h2>Special Request</h2>
-            <label for="accessibility-needs">Dietary, accessibility or family notes
-              <textarea id="accessibility-needs" name="accessibility-needs" rows="5" placeholder="Share any needs the committee should plan for."></textarea>
-            </label>
-          </div>
-
           <div class="button-row">
             <button class="button primary" type="submit">Create Account</button>
-            <a class="button secondary" href="login.html">Go to Member Login</a>
+            <a class="button secondary" href="login.html">Already Have an Account?</a>
           </div>
         </form>
 

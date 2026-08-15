@@ -1165,6 +1165,10 @@ select {
 .registration-form {
   grid-column: 1 / -1;
 }
+.registration-layout .registration-form {
+  width: min(100%, 760px);
+  margin-inline: auto;
+}
 .span-2 { grid-column: span 2; }
 .form-section {
   padding-bottom: 1.4rem;

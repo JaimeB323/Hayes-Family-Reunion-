@@ -7,6 +7,7 @@
   const CHILD_PRICE = 70;
   const formatCurrency = window.HayesSupabase.formatCurrency;
   const missing = "Not recorded";
+  let authenticatedUser = null;
   let currentMember = null;
   let householdMembers = [];
   let activities = [];
@@ -174,30 +175,55 @@
   }
 
   function attendeeFields(member, fieldName) {
+    const attendee = member || {};
     return `
       <label>First name
-        <input data-${fieldName}-field="first_name" type="text" value="${escapeHtml(member.first_name)}" required>
+        <input data-${fieldName}-field="first_name" type="text" value="${escapeHtml(attendee.first_name)}" autocomplete="given-name" required>
       </label>
       <label>Last name
-        <input data-${fieldName}-field="last_name" type="text" value="${escapeHtml(member.last_name)}" required>
+        <input data-${fieldName}-field="last_name" type="text" value="${escapeHtml(attendee.last_name)}" autocomplete="family-name" required>
       </label>
       <label>Category
         <select data-${fieldName}-field="category" required>
           <option value="">Not selected</option>
-          <option value="adult"${member.category === "adult" ? " selected" : ""}>Adult</option>
-          <option value="child"${member.category === "child" ? " selected" : ""}>Child</option>
+          <option value="adult"${attendee.category === "adult" ? " selected" : ""}>Adult</option>
+          <option value="child"${attendee.category === "child" ? " selected" : ""}>Child</option>
         </select>
       </label>
       <label>T-shirt size
         <select data-${fieldName}-field="t_shirt_size">
-          ${shirtOptions(member.t_shirt_size)}
+          ${shirtOptions(attendee.t_shirt_size)}
         </select>
       </label>
       <label>Banquet Meal Choice
         <select data-${fieldName}-field="banquet_meal_choice">
-          ${mealOptions(member.banquet_meal_choice)}
+          ${mealOptions(attendee.banquet_meal_choice)}
         </select>
       </label>
+    `;
+  }
+
+  function primaryAccountDetails(member) {
+    const profile = member || {};
+    const householdReadonly = member ? " readonly" : "";
+    return `
+      <div class="primary-account-details">
+        <label>Family / household name
+          <input data-primary-field="household_name" type="text" value="${escapeHtml(profile.household_name)}" autocomplete="organization" placeholder="Example: Thompson-Hayes Household" required${householdReadonly}>
+        </label>
+        <label>Login email
+          <input type="email" value="${escapeHtml(profile.email || authenticatedUser?.email)}" autocomplete="email" readonly>
+        </label>
+        <label>Phone
+          <input data-primary-field="phone" type="tel" value="${escapeHtml(profile.phone)}" autocomplete="tel" placeholder="(000) 000-0000">
+        </label>
+        <label>Expected arrival
+          <select data-primary-field="expected_arrival">
+            <option value="">To be confirmed</option>
+            ${["August 31, 2028", "September 1, 2028", "September 2, 2028", "September 3, 2028"].map((date) => `<option value="${date}"${profile.expected_arrival === date ? " selected" : ""}>${date}</option>`).join("")}
+          </select>
+        </label>
+      </div>
     `;
   }
 
@@ -205,17 +231,18 @@
     const container = dashboard.querySelector("[data-primary-account-holder]");
     if (!container) return;
 
-    if (!currentMember) {
+    if (!authenticatedUser) {
       container.innerHTML = "<p>Sign in to manage the primary account holder.</p>";
       return;
     }
 
     container.innerHTML = `
       <form class="primary-account-form" data-primary-account-form>
+        ${primaryAccountDetails(currentMember)}
         <div class="attendee-row">
           ${attendeeFields(currentMember, "primary")}
         </div>
-        <button class="button primary" type="submit">Save Primary Account Holder</button>
+        <button class="button primary" type="submit">${currentMember ? "Save Primary Account Holder" : "Complete Account Setup"}</button>
       </form>
     `;
   }
@@ -334,6 +361,7 @@
   async function loadDashboard() {
     const { data: sessionData } = await supabase.auth.getSession();
     const user = sessionData.session?.user;
+    authenticatedUser = user || null;
     if (!user) {
       currentMember = null;
       householdMembers = [];
@@ -363,7 +391,7 @@
       const title = dashboard.querySelector("[data-member-name]");
       const note = dashboard.querySelector("[data-member-note]");
       if (title) title.textContent = user.email || "Member account";
-      if (note) note.textContent = "Your member profile is not available yet.";
+      if (note) note.textContent = "Complete the Primary Account Holder section below to begin your household registration.";
       ["totalRegistered", "registrationTotal", "activityTotal", "grandTotal", "paid", "balance", "adultCount", "childCount", "adultSubtotal", "childSubtotal"].forEach((key) => setMetric(key, missing));
       renderPrimaryAccountHolder();
       showEmpty("[data-household-members]", 6, "No registered family members found yet.");
@@ -464,20 +492,72 @@
     if (!form) return;
     event.preventDefault();
 
+    if (!authenticatedUser) {
+      alert("Please sign in before completing your account.");
+      return;
+    }
+
     const payload = { attendee_status: "registered" };
     form.querySelectorAll("[data-primary-field]").forEach((input) => {
       payload[input.getAttribute("data-primary-field")] = input.value || null;
     });
 
-    if (!payload.first_name || !payload.last_name || !payload.category) {
-      alert("Please enter first name, last name and category.");
+    if (!payload.household_name || !payload.first_name || !payload.last_name || !payload.category) {
+      alert("Please enter your household name, first name, last name and category.");
       return;
     }
 
-    const { error } = await supabase.from("family_members").update(payload).eq("id", currentMember.id);
-    if (error) {
-      alert(error.message);
+    const profilePayload = {
+      ...payload,
+      email: authenticatedUser.email,
+      role: "member",
+      is_primary_contact: true
+    };
+
+    let profileError;
+    if (currentMember) {
+      const result = await supabase.from("family_members").update(profilePayload).eq("id", currentMember.id);
+      profileError = result.error;
+    } else {
+      const result = await supabase.from("family_members").insert({
+        ...profilePayload,
+        id: authenticatedUser.id,
+        auth_user_id: authenticatedUser.id
+      });
+      profileError = result.error;
+    }
+
+    if (profileError) {
+      alert(profileError.message);
       return;
+    }
+
+    if (!currentMember) {
+      const { error: householdError } = await supabase.from("households").insert({
+        household_name: payload.household_name,
+        primary_contact_id: authenticatedUser.id,
+        total_family_members: 1,
+        total_amount_due: payload.category === "adult" ? ADULT_PRICE : CHILD_PRICE,
+        total_amount_paid: 0
+      });
+
+      if (householdError) {
+        alert("Your account was saved, but the household could not be created. Please refresh and try again.");
+        await loadDashboard();
+        return;
+      }
+
+      const { error: registrationError } = await supabase.from("reunion_registrations").insert({
+        family_member_id: authenticatedUser.id,
+        registration_status: "registered",
+        number_of_guests: 1,
+        total_amount_due: payload.category === "adult" ? ADULT_PRICE : CHILD_PRICE,
+        total_amount_paid: 0
+      });
+
+      if (registrationError) {
+        alert("Your account was saved, but registration totals could not be initialized. Please refresh and try again.");
+      }
     }
 
     await loadDashboard();
