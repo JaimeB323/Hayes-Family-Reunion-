@@ -105,7 +105,9 @@
   }
 
   function paymentTotal() {
-    return payments.reduce((total, payment) => total + Number(payment.amount || 0), 0);
+    return payments
+      .filter((payment) => payment.payment_status !== "pending")
+      .reduce((total, payment) => total + Number(payment.amount || 0), 0);
   }
 
   async function syncRegistrationTotals() {
@@ -151,6 +153,9 @@
     setMetric("childCount", String(totals.children));
     setMetric("adultSubtotal", formatCurrency(totals.adultSubtotal));
     setMetric("childSubtotal", formatCurrency(totals.childSubtotal));
+
+    const balanceNode = dashboard.querySelector("[data-account-balance]");
+    if (balanceNode) balanceNode.textContent = formatCurrency(balance);
   }
 
   function shirtOptions(selectedValue) {
@@ -245,13 +250,17 @@
       const accountName = fullName(currentMember) || "Member";
       if (heading) heading.textContent = `${accountName} Household`;
       container.innerHTML = `
-        <label class="expected-arrival-control">
-          <span>Expected Arrival</span>
-          <select data-expected-arrival aria-label="Expected arrival day">
-            <option value="">Choose a day</option>
-            ${["Thursday", "Friday", "Saturday"].map((day) => `<option value="${day}"${currentMember.expected_arrival === day ? " selected" : ""}>${day}</option>`).join("")}
-          </select>
-        </label>
+        <div class="account-save-controls">
+          <label class="expected-arrival-control">
+            <span>Expected Arrival</span>
+            <select data-expected-arrival aria-label="Expected arrival day">
+              <option value="">Choose a day</option>
+              ${["Thursday", "Friday", "Saturday"].map((day) => `<option value="${day}"${currentMember.expected_arrival === day ? " selected" : ""}>${day}</option>`).join("")}
+            </select>
+          </label>
+          <button class="button primary" type="button" data-save-account-changes>Save Changes</button>
+          <span class="save-confirmation" data-account-save-status aria-live="polite"></span>
+        </div>
       `;
       return;
     }
@@ -321,36 +330,25 @@
   }
 
   function renderActivitySelections() {
-    const availableBody = dashboard.querySelector("[data-available-activities]");
-    if (!availableBody) return;
+    const select = dashboard.querySelector("[data-activity-selection]");
+    const details = dashboard.querySelector("[data-activity-selection-details]");
+    if (!select) return;
 
     if (!activities.length) {
-      showEmpty("[data-available-activities]", 8, "No activities available yet.");
+      select.innerHTML = '<option value="">No activities available yet</option>';
+      select.disabled = true;
+      if (details) details.textContent = "New activities will appear here when they are available.";
       return;
     }
 
-    availableBody.innerHTML = activities.map((activity) => {
-      const existing = activityRegistrations.find((item) => item.activity_id === activity.id);
-      const quantity = existing?.number_of_attendees || 0;
-      const subtotal = quantity * Number(activity.price || 0);
-      return `
-        <tr data-activity-id="${escapeHtml(activity.id)}">
-          <td>${escapeHtml(activity.activity_name)}</td>
-          <td>${escapeHtml(formatDate(activity.activity_date))}</td>
-          <td>${escapeHtml(formatTime(activity.start_time))}</td>
-          <td>${escapeHtml(activity.location || "TBD")}</td>
-          <td>${escapeHtml(formatCurrency(activity.price))}</td>
-          <td><input class="activity-quantity" data-activity-quantity type="number" min="0" value="${escapeHtml(quantity)}" aria-label="Quantity for ${escapeHtml(activity.activity_name)}"></td>
-          <td data-activity-subtotal>${escapeHtml(formatCurrency(subtotal))}</td>
-          <td>
-            <div class="member-actions">
-              <button class="button secondary" type="button" data-save-activity="${escapeHtml(activity.id)}">Save</button>
-              ${existing ? `<button class="button secondary" type="button" data-remove-activity="${escapeHtml(activity.id)}">Remove</button>` : ""}
-            </div>
-          </td>
-        </tr>
-      `;
-    }).join("");
+    const availableActivities = activities.filter((activity) => !activityRegistrations.some((item) => item.activity_id === activity.id));
+    select.disabled = !availableActivities.length;
+    select.innerHTML = availableActivities.length
+      ? `<option value="">Choose an activity</option>${availableActivities.map((activity) => `<option value="${escapeHtml(activity.id)}">${escapeHtml(activity.activity_name)} - ${escapeHtml(formatCurrency(activity.price))}</option>`).join("")}`
+      : '<option value="">All available activities have been purchased</option>';
+    if (details) details.textContent = availableActivities.length
+      ? "Select an activity to see its details."
+      : "Your selected activities are listed below.";
   }
 
   function renderRegisteredActivities() {
@@ -368,10 +366,14 @@
             <td>${escapeHtml(activity.location || "TBD")}</td>
             <td>${escapeHtml(item.number_of_attendees ?? 0)}</td>
             <td>${escapeHtml(formatCurrency(activitySubtotal(item)))}</td>
+            <td><button class="button secondary" type="button" data-remove-activity="${escapeHtml(item.activity_id)}">Remove</button></td>
           </tr>
         `;
       }).join("")
-      : `<tr><td colspan="6">No activities registered yet.</td></tr>`;
+      : `<tr><td colspan="7">No activities purchased yet.</td></tr>`;
+
+    const totalNode = dashboard.querySelector("[data-activity-purchase-total]");
+    if (totalNode) totalNode.textContent = formatCurrency(activityTotal());
   }
 
   function renderPaymentHistory() {
@@ -384,7 +386,7 @@
           <td>${escapeHtml(formatDate(payment.payment_date))}</td>
           <td>${escapeHtml(formatLabel(payment.payment_type || "payment"))}</td>
           <td>${escapeHtml(formatCurrency(payment.amount))}</td>
-          <td>${escapeHtml(formatLabel(payment.payment_status || payment.status || "recorded"))}</td>
+          <td><span class="payment-status ${payment.payment_status === "pending" ? "pending" : "confirmed"}">${escapeHtml(formatLabel(payment.payment_status || "confirmed"))}</span></td>
         </tr>
       `).join("")
       : `<tr><td colspan="4">No payments recorded yet.</td></tr>`;
@@ -404,8 +406,9 @@
       ["totalRegistered", "registrationTotal", "activityTotal", "grandTotal", "paid", "balance", "adultCount", "childCount", "adultSubtotal", "childSubtotal"].forEach((key) => setMetric(key, missing));
       renderPrimaryAccountHolder();
       showEmpty("[data-household-members]", 6, "Sign in to view registered family members.");
-      showEmpty("[data-available-activities]", 8, "Sign in to view available activities.");
-      showEmpty("[data-member-activities]", 6, "Sign in to view registered activities.");
+      const activitySelect = dashboard.querySelector("[data-activity-selection]");
+      if (activitySelect) activitySelect.innerHTML = '<option value="">Sign in to view activities</option>';
+      showEmpty("[data-member-activities]", 7, "Sign in to view purchased activities.");
       showEmpty("[data-payment-history]", 4, "Sign in to view payment history.");
       return;
     }
@@ -427,8 +430,9 @@
       ["totalRegistered", "registrationTotal", "activityTotal", "grandTotal", "paid", "balance", "adultCount", "childCount", "adultSubtotal", "childSubtotal"].forEach((key) => setMetric(key, missing));
       renderPrimaryAccountHolder();
       showEmpty("[data-household-members]", 6, "No registered family members found yet.");
-      showEmpty("[data-available-activities]", 8, "No activities available yet.");
-      showEmpty("[data-member-activities]", 6, "No activities registered yet.");
+      const activitySelect = dashboard.querySelector("[data-activity-selection]");
+      if (activitySelect) activitySelect.innerHTML = '<option value="">Complete account setup to view activities</option>';
+      showEmpty("[data-member-activities]", 7, "No activities purchased yet.");
       showEmpty("[data-payment-history]", 4, "No payments recorded yet.");
       return;
     }
@@ -598,8 +602,51 @@
   dashboard.addEventListener("click", async (event) => {
     const saveMemberButton = event.target.closest("[data-save-family-member]");
     const removeMemberButton = event.target.closest("[data-remove-family-member]");
-    const saveActivityButton = event.target.closest("[data-save-activity]");
     const removeActivityButton = event.target.closest("[data-remove-activity]");
+    const saveAccountButton = event.target.closest("[data-save-account-changes]");
+    const refreshPaymentsButton = event.target.closest("[data-refresh-payments]");
+    const accountBalanceButton = event.target.closest("[data-account-balance-button]");
+
+    if (accountBalanceButton) {
+      const status = dashboard.querySelector("[data-payment-refresh-status]");
+      if (status) status.textContent = "Balance reflects confirmed payments only.";
+      return;
+    }
+
+    if (saveAccountButton) {
+      const arrivalSelect = dashboard.querySelector("[data-expected-arrival]");
+      const status = dashboard.querySelector("[data-account-save-status]");
+      if (!arrivalSelect || !currentMember) return;
+
+      saveAccountButton.disabled = true;
+      if (status) status.textContent = "Saving...";
+      const { error } = await supabase
+        .from("family_members")
+        .update({ expected_arrival: arrivalSelect.value || null })
+        .eq("id", currentMember.id);
+      saveAccountButton.disabled = false;
+
+      if (error) {
+        if (status) status.textContent = "Changes were not saved.";
+        alert("Expected arrival could not be saved. Please try again.");
+        return;
+      }
+
+      currentMember.expected_arrival = arrivalSelect.value || null;
+      if (status) status.textContent = "Changes saved.";
+      return;
+    }
+
+    if (refreshPaymentsButton) {
+      const status = dashboard.querySelector("[data-payment-refresh-status]");
+      refreshPaymentsButton.disabled = true;
+      if (status) status.textContent = "Refreshing...";
+      await loadDashboard();
+      refreshPaymentsButton.disabled = false;
+      const refreshedStatus = dashboard.querySelector("[data-payment-refresh-status]");
+      if (refreshedStatus) refreshedStatus.textContent = "Payment history updated.";
+      return;
+    }
 
     if (saveMemberButton) {
       const id = saveMemberButton.getAttribute("data-save-family-member");
@@ -622,32 +669,6 @@
       return;
     }
 
-    if (saveActivityButton) {
-      const activityId = saveActivityButton.getAttribute("data-save-activity");
-      const activity = activities.find((item) => item.id === activityId);
-      const row = saveActivityButton.closest("tr");
-      const quantity = Number(row.querySelector("[data-activity-quantity]")?.value || 0);
-
-      if (!activity || quantity < 1) {
-        alert("Choose a quantity of at least 1 to save this activity.");
-        return;
-      }
-
-      const existing = activityRegistrations.find((item) => item.activity_id === activityId);
-      const { error } = await supabase.from("activity_registrations").upsert({
-        family_member_id: currentMember.id,
-        activity_id: activityId,
-        number_of_attendees: quantity,
-        amount_due: quantity * Number(activity.price || 0),
-        amount_paid: existing?.amount_paid || 0,
-        registration_status: "registered"
-      }, { onConflict: "family_member_id,activity_id" });
-
-      if (error) alert(error.message);
-      await loadDashboard();
-      return;
-    }
-
     if (removeActivityButton) {
       const activityId = removeActivityButton.getAttribute("data-remove-activity");
       const { error } = await supabase
@@ -660,34 +681,53 @@
     }
   });
 
-  dashboard.addEventListener("input", (event) => {
-    const input = event.target.closest("[data-activity-quantity]");
-    if (!input) return;
-    const row = input.closest("tr");
-    const activity = activities.find((item) => item.id === row.getAttribute("data-activity-id"));
-    const subtotal = Number(input.value || 0) * Number(activity?.price || 0);
-    const subtotalCell = row.querySelector("[data-activity-subtotal]");
-    if (subtotalCell) subtotalCell.textContent = formatCurrency(subtotal);
-  });
-
-  dashboard.addEventListener("change", async (event) => {
-    const arrivalSelect = event.target.closest("[data-expected-arrival]");
-    if (!arrivalSelect || !currentMember) return;
-
-    arrivalSelect.disabled = true;
-    const { error } = await supabase
-      .from("family_members")
-      .update({ expected_arrival: arrivalSelect.value || null })
-      .eq("id", currentMember.id);
-    arrivalSelect.disabled = false;
-
-    if (error) {
-      alert("Expected arrival could not be saved. Please try again.");
-      arrivalSelect.value = currentMember.expected_arrival || "";
+  dashboard.querySelector("[data-activity-purchase-form]")?.addEventListener("submit", async (event) => {
+    event.preventDefault();
+    if (!currentMember) {
+      alert("Complete your household setup before selecting activities.");
       return;
     }
 
-    currentMember.expected_arrival = arrivalSelect.value || null;
+    const form = event.currentTarget;
+    const activityId = form.querySelector("[data-activity-selection]")?.value;
+    const quantity = Number(form.querySelector("[data-activity-purchase-quantity]")?.value || 0);
+    const activity = activities.find((item) => item.id === activityId);
+
+    if (!activity || quantity < 1) {
+      alert("Choose an activity and a quantity of at least 1.");
+      return;
+    }
+
+    const submitButton = form.querySelector('button[type="submit"]');
+    if (submitButton) submitButton.disabled = true;
+    const { error } = await supabase.from("activity_registrations").insert({
+      family_member_id: currentMember.id,
+      activity_id: activityId,
+      number_of_attendees: quantity,
+      amount_due: quantity * Number(activity.price || 0),
+      amount_paid: 0,
+      registration_status: "registered"
+    });
+    if (submitButton) submitButton.disabled = false;
+
+    if (error) {
+      alert(error.message);
+      return;
+    }
+
+    form.reset();
+    await loadDashboard();
+  });
+
+  dashboard.addEventListener("change", async (event) => {
+    const activitySelect = event.target.closest("[data-activity-selection]");
+    if (!activitySelect) return;
+    const details = dashboard.querySelector("[data-activity-selection-details]");
+    const activity = activities.find((item) => item.id === activitySelect.value);
+    if (!details) return;
+    details.textContent = activity
+      ? `${formatDate(activity.activity_date)} at ${formatTime(activity.start_time)} | ${activity.location || "TBD"} | ${formatCurrency(activity.price)} per person`
+      : "Select an activity to see its details.";
   });
 
   await loadDashboard();

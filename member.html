@@ -94,22 +94,26 @@
 
         <article class="panel member-activities">
           <h2>Activities</h2>
-          <h3>Available Activities</h3>
-          <div class="table-wrap">
-            <table>
-              <thead><tr><th>Activity</th><th>Date</th><th>Time</th><th>Location</th><th>Price</th><th>Quantity</th><th>Subtotal</th><th>Action</th></tr></thead>
-              <tbody data-available-activities>
-                <tr><td colspan="8">Loading available activities...</td></tr>
-              </tbody>
-            </table>
-          </div>
+          <form class="activity-purchase-form" data-activity-purchase-form>
+            <label for="activity-selection">Select an activity
+              <select id="activity-selection" name="activity-selection" data-activity-selection required>
+                <option value="">Loading activities...</option>
+              </select>
+            </label>
+            <label for="activity-quantity">Quantity
+              <input id="activity-quantity" name="activity-quantity" data-activity-purchase-quantity type="number" min="1" value="1" required>
+            </label>
+            <button class="button primary" type="submit">Add to Purchases</button>
+            <p class="activity-selection-details" data-activity-selection-details>Select an activity to see its details.</p>
+          </form>
           <h3>Activities Purchased</h3>
           <div class="table-wrap">
             <table>
-              <thead><tr><th>Activity Name</th><th>Date</th><th>Time</th><th>Location</th><th>Quantity</th><th>Subtotal</th></tr></thead>
+              <thead><tr><th>Activity Name</th><th>Date</th><th>Time</th><th>Location</th><th>Quantity</th><th>Subtotal</th><th>Action</th></tr></thead>
               <tbody data-member-activities>
-                <tr><td colspan="6">Loading registered activities...</td></tr>
+                <tr><td colspan="7">Loading registered activities...</td></tr>
               </tbody>
+              <tfoot><tr><th colspan="5">Activities Total</th><td colspan="2" data-activity-purchase-total>$0.00</td></tr></tfoot>
             </table>
           </div>
         </article>
@@ -117,12 +121,21 @@
         <article id="payment-history" class="panel member-payments">
           <h2>Payment History</h2>
           <div class="table-wrap">
-            <table>
+            <table id="member-payment-history">
               <thead><tr><th>Date</th><th>Description</th><th>Amount</th><th>Status</th></tr></thead>
               <tbody data-payment-history>
                 <tr><td colspan="4">Loading payment history...</td></tr>
               </tbody>
             </table>
+          </div>
+          <div class="payment-portal-actions">
+            <button class="account-balance-display" type="button" data-account-balance-button>
+              <span>Account Balance</span>
+              <strong data-account-balance>$0.00</strong>
+            </button>
+            <a class="button primary" href="payment.html">Make Payment</a>
+            <button class="button secondary" type="button" data-refresh-payments>Payment History</button>
+            <span class="save-confirmation" data-payment-refresh-status aria-live="polite"></span>
           </div>
         </article>
       </section>

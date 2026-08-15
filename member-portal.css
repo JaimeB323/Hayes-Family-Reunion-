@@ -57,6 +57,21 @@
   font-weight: 900;
 }
 
+.account-save-controls {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  flex-wrap: wrap;
+  gap: 0.7rem;
+}
+
+.save-confirmation {
+  min-width: 110px;
+  color: #174f40;
+  font-size: 0.85rem;
+  font-weight: 900;
+}
+
 .member-actions {
   display: flex;
   flex-wrap: wrap;
@@ -73,6 +88,88 @@
   margin-top: 1.2rem;
   font-size: 1.1rem;
   font-weight: 900;
+}
+
+.activity-purchase-form {
+  display: grid;
+  grid-template-columns: minmax(240px, 2fr) minmax(100px, 0.5fr) auto;
+  gap: 0.8rem;
+  align-items: end;
+  padding: 1rem;
+  background: var(--cream);
+  border-radius: var(--radius);
+}
+
+.activity-purchase-form label {
+  display: grid;
+  gap: 0.35rem;
+  font-weight: 900;
+}
+
+.activity-selection-details {
+  grid-column: 1 / -1;
+  margin: 0;
+  color: var(--muted);
+}
+
+.member-activities tfoot th,
+.member-activities tfoot td {
+  border-top: 2px solid var(--gold);
+  font-size: 1.05rem;
+  font-weight: 900;
+  text-align: right;
+}
+
+.payment-portal-actions {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin-top: 1rem;
+}
+
+.account-balance-display {
+  display: grid;
+  gap: 0.15rem;
+  min-width: 180px;
+  padding: 0.75rem 1rem;
+  border-left: 5px solid var(--gold);
+  background: var(--cream);
+  color: var(--ink);
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+}
+
+.account-balance-display span {
+  font-size: 0.75rem;
+  font-weight: 900;
+  text-transform: uppercase;
+}
+
+.account-balance-display strong {
+  font-size: 1.35rem;
+}
+
+.payment-status {
+  display: inline-flex;
+  align-items: center;
+  min-height: 28px;
+  padding: 0.25rem 0.65rem;
+  border-radius: 999px;
+  font-size: 0.75rem;
+  font-weight: 900;
+}
+
+.payment-status.pending {
+  background: #fff0cd;
+  color: #775313;
+}
+
+.payment-status.confirmed {
+  background: #dcefe8;
+  color: #174f40;
 }
 
 .activity-quantity {
@@ -94,9 +191,23 @@
   }
 
   .primary-account-holder.has-account,
-  .expected-arrival-control {
+  .expected-arrival-control,
+  .account-save-controls {
     align-items: stretch;
     flex-direction: column;
+  }
+
+  .activity-purchase-form {
+    grid-template-columns: 1fr;
+  }
+
+  .payment-portal-actions {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .payment-portal-actions .button {
+    width: 100%;
   }
 }
 

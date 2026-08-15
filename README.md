@@ -20,6 +20,7 @@ This is an initial static website draft for the Hayes Family Reunion in Charlest
 - `supabase/migrations/001_initial_schema.sql`: reproducible Supabase schema and Row Level Security setup
 - `supabase/migrations/002_household_member_management.sql`: household member management fields and RLS updates
 - `supabase/migrations/003_banquet_meal_choice.sql`: per-attendee banquet meal and attendee status fields
+- `supabase/migrations/004_member_payments_and_sample_activities.sql`: pending payment confirmations, member payment RLS and initial activity options
 - `docs/supabase-setup.md`: Supabase setup, environment and testing documentation
 - `assets/charleston-hero.webp`: Charleston hero image
 - `assets/charlotte-skyline.png`: earlier Charlotte image retained in the project
@@ -56,7 +57,7 @@ Cloudflare automatic deployment is configured from the GitHub repository. New co
 
 ## Future Integrations
 
-This draft now includes the foundation for Supabase authentication, member data, committee/admin data and manual payment tracking. It does not add a payment processor.
+This draft now includes Supabase authentication, member data, committee/admin data and manual Zelle/Venmo payment confirmation tracking. It does not add a payment processor; submitted payments remain pending until a committee admin confirms them.
 
 The member portal stores each attendee's category, T-shirt size and banquet meal choice on their `family_members` record. The authenticated primary account holder uses their existing linked record and is included in the household registration count.
 

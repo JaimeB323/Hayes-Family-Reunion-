@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Submit Payment | Hayes Family Reunion</title>
-    <meta name="description" content="Prototype payment page for the Hayes Family Reunion member portal.">
+    <meta name="description" content="Submit a Zelle or Venmo payment confirmation for the Hayes Family Reunion.">
     <link rel="stylesheet" href="styles.css">
   </head>
   <body>
@@ -34,33 +34,49 @@
         <figure class="hero-photo"><img src="assets/charleston-hero.webp" alt="Charleston street scene for the payment page"></figure>
       </section>
 
-      <section class="section registration-layout" aria-label="Prototype payment form">
+      <section class="section registration-layout" aria-label="Payment confirmation form">
         <form class="payment-form panel">
           <div class="form-section">
-            <h2>Payment Details</h2>
+            <h2>Choose a Payment Method</h2>
+            <p class="note" data-payment-account>Loading your member account...</p>
+            <div class="payment-method-cards" role="radiogroup" aria-label="Payment method">
+              <label class="payment-method-card venmo-card">
+                <input name="payment-method" type="radio" value="venmo" required>
+                <span class="payment-method-name">Venmo</span>
+                <strong>Official username coming soon</strong>
+                <small>Choose Venmo, send your payment using the committee's official username, then submit the confirmation below.</small>
+              </label>
+              <label class="payment-method-card zelle-card">
+                <input name="payment-method" type="radio" value="zelle" required>
+                <span class="payment-method-name">Zelle</span>
+                <strong>Official email or phone coming soon</strong>
+                <small>Choose Zelle, send your payment to the committee's official recipient, then submit the confirmation below.</small>
+              </label>
+            </div>
+          </div>
+          <div class="form-section">
+            <h2>Payment Confirmation</h2>
             <div class="form-grid two">
-              <label for="payment-name">Family name
-                <input id="payment-name" name="payment-name" type="text" placeholder="Example: Thompson-Hayes Household">
-              </label>
-              <label for="payment-email">Email
-                <input id="payment-email" name="payment-email" type="email" placeholder="name@example.com">
-              </label>
-              <label for="payment-amount">Payment amount
-                <input id="payment-amount" name="payment-amount" type="text" placeholder="$240">
-              </label>
-              <label for="payment-method">Payment method
-                <select id="payment-method" name="payment-method">
-                  <option>Venmo</option>
-                  <option>Zelle</option>
+              <label for="payment-type">Payment for
+                <select id="payment-type" name="payment-type" required>
+                  <option value="registration">Registration</option>
+                  <option value="activity">Activities</option>
+                  <option value="other">Other</option>
                 </select>
               </label>
+              <label for="payment-amount">Payment amount
+                <input id="payment-amount" name="payment-amount" type="number" min="0.01" step="0.01" placeholder="0.00" required>
+              </label>
               <label for="payment-confirmation">Confirmation number or note
-                <input id="payment-confirmation" name="payment-confirmation" type="text" placeholder="Example: Venmo confirmation or Zelle note">
+                <input id="payment-confirmation" name="payment-confirmation" type="text" placeholder="Venmo or Zelle confirmation" required>
+              </label>
+              <label for="payment-notes">Notes
+                <textarea id="payment-notes" name="payment-notes" rows="3" placeholder="Optional note for the committee"></textarea>
               </label>
             </div>
           </div>
           <div class="button-row">
-            <button class="button primary" type="submit">Submit Payment</button>
+            <button class="button primary" type="submit">Submit for Confirmation</button>
             <a class="button secondary" href="member.html">Back to Member Portal</a>
           </div>
         </form>
