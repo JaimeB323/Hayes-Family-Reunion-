@@ -229,12 +229,22 @@
 
   function renderPrimaryAccountHolder() {
     const container = dashboard.querySelector("[data-primary-account-holder]");
+    const heading = dashboard.querySelector("[data-household-heading]");
     if (!container) return;
 
     if (!authenticatedUser) {
+      if (heading) heading.textContent = "Household Account";
       container.innerHTML = "<p>Sign in to manage the primary account holder.</p>";
       return;
     }
+
+    if (currentMember) {
+      if (heading) heading.textContent = currentMember.household_name || "Household";
+      container.innerHTML = "";
+      return;
+    }
+
+    if (heading) heading.textContent = "Complete Household Setup";
 
     container.innerHTML = `
       <form class="primary-account-form" data-primary-account-form>
