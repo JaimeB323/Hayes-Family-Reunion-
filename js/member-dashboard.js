@@ -70,13 +70,18 @@
     if (body) body.innerHTML = `<tr><td colspan="${colspan}">${escapeHtml(message)}</td></tr>`;
   }
 
-  function selectedMembers() {
-    return householdMembers.filter((member) => ["adult", "child"].includes(member.category));
+  function isPrimaryMember(member) {
+    return member?.id === currentMember?.id || member?.auth_user_id === currentMember?.auth_user_id;
+  }
+
+  function isRegisteredAttendee(member) {
+    return member?.attendee_status !== "not_attending" && ["adult", "child"].includes(member?.category);
   }
 
   function registrationTotals() {
-    const adults = householdMembers.filter((member) => member.category === "adult").length;
-    const children = householdMembers.filter((member) => member.category === "child").length;
+    const registeredMembers = householdMembers.filter(isRegisteredAttendee);
+    const adults = registeredMembers.filter((member) => member.category === "adult").length;
+    const children = registeredMembers.filter((member) => member.category === "child").length;
     const adultSubtotal = adults * ADULT_PRICE;
     const childSubtotal = children * CHILD_PRICE;
     return {
@@ -155,17 +160,77 @@
     }).join("");
   }
 
-  function renderHouseholdMembers() {
-    const body = dashboard.querySelector("[data-household-members]");
-    if (!body) return;
-    if (!householdMembers.length) {
-      showEmpty("[data-household-members]", 5, "No registered family members found yet.");
+  function mealOptions(selectedValue) {
+    const meals = [
+      ["", "Not selected"],
+      ["steak", "Steak"],
+      ["chicken", "Chicken"],
+      ["vegetarian", "Vegetarian"]
+    ];
+    return meals.map(([value, label]) => {
+      const selected = value === (selectedValue || "") ? " selected" : "";
+      return `<option value="${escapeHtml(value)}"${selected}>${escapeHtml(label)}</option>`;
+    }).join("");
+  }
+
+  function attendeeFields(member, fieldName) {
+    return `
+      <label>First name
+        <input data-${fieldName}-field="first_name" type="text" value="${escapeHtml(member.first_name)}" required>
+      </label>
+      <label>Last name
+        <input data-${fieldName}-field="last_name" type="text" value="${escapeHtml(member.last_name)}" required>
+      </label>
+      <label>Category
+        <select data-${fieldName}-field="category" required>
+          <option value="">Not selected</option>
+          <option value="adult"${member.category === "adult" ? " selected" : ""}>Adult</option>
+          <option value="child"${member.category === "child" ? " selected" : ""}>Child</option>
+        </select>
+      </label>
+      <label>T-shirt size
+        <select data-${fieldName}-field="t_shirt_size">
+          ${shirtOptions(member.t_shirt_size)}
+        </select>
+      </label>
+      <label>Banquet Meal Choice
+        <select data-${fieldName}-field="banquet_meal_choice">
+          ${mealOptions(member.banquet_meal_choice)}
+        </select>
+      </label>
+    `;
+  }
+
+  function renderPrimaryAccountHolder() {
+    const container = dashboard.querySelector("[data-primary-account-holder]");
+    if (!container) return;
+
+    if (!currentMember) {
+      container.innerHTML = "<p>Sign in to manage the primary account holder.</p>";
       return;
     }
 
-    body.innerHTML = householdMembers.map((member) => {
-      const isPrimary = member.id === currentMember?.id || member.auth_user_id === currentMember?.auth_user_id;
-      return `
+    container.innerHTML = `
+      <form class="primary-account-form" data-primary-account-form>
+        <div class="attendee-row">
+          ${attendeeFields(currentMember, "primary")}
+        </div>
+        <button class="button primary" type="submit">Save Primary Account Holder</button>
+      </form>
+    `;
+  }
+
+  function renderHouseholdMembers() {
+    const body = dashboard.querySelector("[data-household-members]");
+    if (!body) return;
+    const additionalMembers = householdMembers.filter((member) => !isPrimaryMember(member));
+
+    if (!additionalMembers.length) {
+      showEmpty("[data-household-members]", 6, "No additional family members added yet.");
+      return;
+    }
+
+    body.innerHTML = additionalMembers.map((member) => `
         <tr data-family-member-id="${escapeHtml(member.id)}">
           <td><input data-member-field="first_name" type="text" value="${escapeHtml(member.first_name)}" aria-label="First name for ${escapeHtml(fullName(member))}"></td>
           <td><input data-member-field="last_name" type="text" value="${escapeHtml(member.last_name)}" aria-label="Last name for ${escapeHtml(fullName(member))}"></td>
@@ -182,14 +247,18 @@
             </select>
           </td>
           <td>
+            <select data-member-field="banquet_meal_choice" aria-label="Banquet meal choice for ${escapeHtml(fullName(member))}">
+              ${mealOptions(member.banquet_meal_choice)}
+            </select>
+          </td>
+          <td>
             <div class="member-actions">
               <button class="button secondary" type="button" data-save-family-member="${escapeHtml(member.id)}">Save</button>
-              ${isPrimary ? "" : `<button class="button secondary" type="button" data-remove-family-member="${escapeHtml(member.id)}">Remove</button>`}
+              <button class="button secondary" type="button" data-remove-family-member="${escapeHtml(member.id)}">Remove</button>
             </div>
           </td>
         </tr>
-      `;
-    }).join("");
+      `).join("");
   }
 
   function renderActivitySelections() {
@@ -266,12 +335,15 @@
     const { data: sessionData } = await supabase.auth.getSession();
     const user = sessionData.session?.user;
     if (!user) {
+      currentMember = null;
+      householdMembers = [];
       const title = dashboard.querySelector("[data-member-name]");
       const note = dashboard.querySelector("[data-member-note]");
       if (title) title.textContent = "Please sign in";
       if (note) note.textContent = "Sign in to view your household dashboard.";
       ["totalRegistered", "registrationTotal", "activityTotal", "grandTotal", "paid", "balance", "adultCount", "childCount", "adultSubtotal", "childSubtotal"].forEach((key) => setMetric(key, missing));
-      showEmpty("[data-household-members]", 5, "Sign in to view registered family members.");
+      renderPrimaryAccountHolder();
+      showEmpty("[data-household-members]", 6, "Sign in to view registered family members.");
       showEmpty("[data-available-activities]", 8, "Sign in to view available activities.");
       showEmpty("[data-member-activities]", 6, "Sign in to view registered activities.");
       showEmpty("[data-payment-history]", 4, "Sign in to view payment history.");
@@ -285,13 +357,16 @@
       .single();
 
     if (memberError || !member) {
+      currentMember = null;
+      householdMembers = [];
       console.warn("Member profile could not be loaded.", memberError);
       const title = dashboard.querySelector("[data-member-name]");
       const note = dashboard.querySelector("[data-member-note]");
       if (title) title.textContent = user.email || "Member account";
       if (note) note.textContent = "Your member profile is not available yet.";
       ["totalRegistered", "registrationTotal", "activityTotal", "grandTotal", "paid", "balance", "adultCount", "childCount", "adultSubtotal", "childSubtotal"].forEach((key) => setMetric(key, missing));
-      showEmpty("[data-household-members]", 5, "No registered family members found yet.");
+      renderPrimaryAccountHolder();
+      showEmpty("[data-household-members]", 6, "No registered family members found yet.");
       showEmpty("[data-available-activities]", 8, "No activities available yet.");
       showEmpty("[data-member-activities]", 6, "No activities registered yet.");
       showEmpty("[data-payment-history]", 4, "No payments recorded yet.");
@@ -335,6 +410,7 @@
     if (title) title.textContent = fullName(member) || user.email || "Member account";
     if (note) note.textContent = householdName ? `Household: ${householdName}` : "Household name not recorded yet.";
 
+    renderPrimaryAccountHolder();
     renderHouseholdMembers();
     renderActivitySelections();
     renderRegisteredActivities();
@@ -355,6 +431,7 @@
     const lastName = form.querySelector("#family-last-name")?.value.trim();
     const category = form.querySelector("#family-category")?.value;
     const tShirtSize = form.querySelector("#family-shirt")?.value || null;
+    const banquetMealChoice = form.querySelector("#family-meal")?.value || null;
 
     if (!firstName || !lastName || !category) {
       alert("Please enter first name, last name and category.");
@@ -367,6 +444,8 @@
       household_name: currentMember.household_name,
       category,
       t_shirt_size: tShirtSize,
+      banquet_meal_choice: banquetMealChoice,
+      attendee_status: "registered",
       is_primary_contact: false,
       role: "member"
     });
@@ -377,6 +456,30 @@
     }
 
     form.reset();
+    await loadDashboard();
+  });
+
+  dashboard.addEventListener("submit", async (event) => {
+    const form = event.target.closest("[data-primary-account-form]");
+    if (!form) return;
+    event.preventDefault();
+
+    const payload = { attendee_status: "registered" };
+    form.querySelectorAll("[data-primary-field]").forEach((input) => {
+      payload[input.getAttribute("data-primary-field")] = input.value || null;
+    });
+
+    if (!payload.first_name || !payload.last_name || !payload.category) {
+      alert("Please enter first name, last name and category.");
+      return;
+    }
+
+    const { error } = await supabase.from("family_members").update(payload).eq("id", currentMember.id);
+    if (error) {
+      alert(error.message);
+      return;
+    }
+
     await loadDashboard();
   });
 
