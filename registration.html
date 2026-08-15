@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Registration | Hayes Family Reunion</title>
-    <meta name="description" content="Household registration prototype for the Hayes Family Reunion.">
+    <meta name="description" content="Household registration for the Hayes Family Reunion.">
     <link rel="stylesheet" href="styles.css">
   </head>
   <body>
@@ -28,9 +28,9 @@
     <main id="main">
       <section class="hero short-hero">
         <div class="hero-copy">
-          <p class="eyebrow">Prototype registration</p>
+          <p class="eyebrow">Registration</p>
           <h1>Registration</h1>
-          <p class="tagline">Use this page as a visual draft for the future reunion registration workflow.</p>
+          <p class="tagline">Create your household account, then manage family members and activities in the Member Portal.</p>
         </div>
         <figure class="hero-photo"><img src="assets/charleston-hero.webp" alt="Charleston street scene for the registration page"></figure>
       </section>
@@ -38,176 +38,39 @@
       <section class="section registration-layout" aria-label="Household registration form">
         <form class="registration-form panel">
           <div class="form-section">
-            <h2>Registration Information</h2>
-            <p class="note">Once Supabase is connected, this login will let your family return to view registration, payments and updates.</p>
+            <h2>Household Account</h2>
+            <p class="note">Start with the primary account holder. After login, you can add family members and activities in the Member Portal.</p>
             <div class="form-grid two">
+              <label for="household-name">Family / household name
+                <input id="household-name" name="household-name" type="text" autocomplete="organization" placeholder="Example: Thompson-Hayes Household" required>
+              </label>
+              <label for="primary-first-name">Primary contact first name
+                <input id="primary-first-name" name="primary-first-name" type="text" autocomplete="given-name" placeholder="First name" required>
+              </label>
+              <label for="primary-last-name">Primary contact last name
+                <input id="primary-last-name" name="primary-last-name" type="text" autocomplete="family-name" placeholder="Last name" required>
+              </label>
               <label for="account-email">Login email
-                <input id="account-email" name="account-email" type="email" autocomplete="email" placeholder="name@example.com">
-              </label>
-              <label for="account-password">Create password
-                <input id="account-password" name="account-password" type="password" autocomplete="new-password" placeholder="Create a secure password">
-              </label>
-              <label for="account-password-confirm">Confirm password
-                <input id="account-password-confirm" name="account-password-confirm" type="password" autocomplete="new-password" placeholder="Re-enter password">
-              </label>
-            </div>
-          </div>
-
-          <div class="form-section">
-            <h2>Primary Contact</h2>
-            <div class="form-grid two">
-              <label for="household-name">Family name
-                <input id="household-name" name="household-name" type="text" autocomplete="organization" placeholder="Example: Thompson-Hayes Household">
-              </label>
-              <label for="primary-contact">Primary contact
-                <input id="primary-contact" name="primary-contact" type="text" autocomplete="name" placeholder="First and last name">
-              </label>
-              <label for="registration-email">Email
-                <input id="registration-email" name="registration-email" type="email" autocomplete="email" placeholder="name@example.com">
+                <input id="account-email" name="account-email" type="email" autocomplete="email" placeholder="name@example.com" required>
               </label>
               <label for="registration-phone">Phone
                 <input id="registration-phone" name="registration-phone" type="tel" autocomplete="tel" placeholder="(000) 000-0000">
               </label>
               <label for="arrival-day">Expected arrival
                 <select id="arrival-day" name="arrival-day">
-                  <option>To be confirmed</option>
-                  <option>Friday</option>
-                  <option>Saturday</option>
-                  <option>Sunday</option>
+                  <option value="">To be confirmed</option>
+                  <option value="August 31, 2028">August 31, 2028</option>
+                  <option value="September 1, 2028">September 1, 2028</option>
+                  <option value="September 2, 2028">September 2, 2028</option>
+                  <option value="September 3, 2028">September 3, 2028</option>
                 </select>
               </label>
-            </div>
-          </div>
-
-          <div class="form-section">
-            <h2>Family Members</h2>
-            <p class="note">Prototype rows. Future versions can let families add or remove members securely.</p>
-            <div class="attendee-list">
-              <div class="attendee-row">
-                <label for="attendee-1">Name<input id="attendee-1" name="attendee-1" type="text" placeholder="Family member name"></label>
-                <label for="age-1">Category<select id="age-1" name="age-1"><option>Adult</option><option>Teen</option><option>Child</option><option>Under age 4</option></select></label>
-                <label for="shirt-1">T-shirt<select id="shirt-1" name="shirt-1"><option>Medium</option><option>Small</option><option>Large</option><option>XL</option><option>Youth Medium</option><option>No shirt</option></select></label>
-              </div>
-              <div class="attendee-row">
-                <label for="attendee-2">Name<input id="attendee-2" name="attendee-2" type="text" placeholder="Family member name"></label>
-                <label for="age-2">Category<select id="age-2" name="age-2"><option>Adult</option><option>Teen</option><option>Child</option><option>Under age 4</option></select></label>
-                <label for="shirt-2">T-shirt<select id="shirt-2" name="shirt-2"><option>Large</option><option>Small</option><option>Medium</option><option>XL</option><option>Youth Medium</option><option>No shirt</option></select></label>
-              </div>
-              <button class="button primary" type="button" data-prototype-alert="Adding more attendee rows will be available in a future version.">Add Another Family Member</button>
-            </div>
-          </div>
-
-          <div class="form-section">
-            <h2>Registration</h2>
-            <div class="table-wrap activity-registration-table">
-              <table>
-                <thead>
-                  <tr>
-                    <th>Activity</th>
-                    <th>Cost</th>
-                    <th>Quantity</th>
-                    <th>Register</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td>Adult Registration</td>
-                    <td>TBD</td>
-                    <td><input type="number" name="adult-registration-quantity" min="0" value="0" aria-label="Adult Registration quantity"></td>
-                    <td><label><input type="checkbox" name="registration" value="adult-registration"> Add</label></td>
-                  </tr>
-                  <tr>
-                    <td>Youth Registration</td>
-                    <td>TBD</td>
-                    <td><input type="number" name="youth-registration-quantity" min="0" value="0" aria-label="Youth Registration quantity"></td>
-                    <td><label><input type="checkbox" name="registration" value="youth-registration"> Add</label></td>
-                  </tr>
-                </tbody>
-                <tfoot>
-                  <tr>
-                    <td>Total</td>
-                    <td>TBD</td>
-                    <td colspan="2">Calculated after selections are finalized</td>
-                  </tr>
-                </tfoot>
-              </table>
-            </div>
-          </div>
-
-          <div class="form-section">
-            <h2>Activities</h2>
-            <div class="table-wrap activity-registration-table">
-              <table>
-                <thead>
-                  <tr>
-                    <th>Activity</th>
-                    <th>Cost</th>
-                    <th>Quantity</th>
-                    <th>Register</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td>Friday Welcome Reception</td>
-                    <td>TBD</td>
-                    <td><input type="number" name="welcome-quantity" min="0" value="0" aria-label="Friday Welcome Reception quantity"></td>
-                    <td><label><input type="checkbox" name="activity" value="welcome"> Add</label></td>
-                  </tr>
-                  <tr>
-                    <td>Saturday Breakfast and Heritage Program</td>
-                    <td>TBD</td>
-                    <td><input type="number" name="breakfast-quantity" min="0" value="0" aria-label="Saturday Breakfast and Heritage Program quantity"></td>
-                    <td><label><input type="checkbox" name="activity" value="breakfast"> Add</label></td>
-                  </tr>
-                  <tr>
-                    <td>Saturday Picnic and Activities</td>
-                    <td>TBD</td>
-                    <td><input type="number" name="picnic-quantity" min="0" value="0" aria-label="Saturday Picnic and Activities quantity"></td>
-                    <td><label><input type="checkbox" name="activity" value="picnic"> Add</label></td>
-                  </tr>
-                  <tr>
-                    <td>Celebration Dinner</td>
-                    <td>TBD</td>
-                    <td><input type="number" name="dinner-quantity" min="0" value="0" aria-label="Celebration Dinner quantity"></td>
-                    <td><label><input type="checkbox" name="activity" value="dinner"> Add</label></td>
-                  </tr>
-                  <tr>
-                    <td>Sunday Worship and Farewell Brunch</td>
-                    <td>TBD</td>
-                    <td><input type="number" name="worship-quantity" min="0" value="0" aria-label="Sunday Worship and Farewell Brunch quantity"></td>
-                    <td><label><input type="checkbox" name="activity" value="worship"> Add</label></td>
-                  </tr>
-                </tbody>
-                <tfoot>
-                  <tr>
-                    <td>Total</td>
-                    <td>TBD</td>
-                    <td colspan="2">Calculated after selections are finalized</td>
-                  </tr>
-                </tfoot>
-              </table>
-            </div>
-          </div>
-
-          <div class="form-section">
-            <h2>Estimated Costs</h2>
-            <p class="note">Demonstration pricing only.</p>
-            <div class="table-wrap estimated-cost-table">
-              <table>
-                <thead>
-                  <tr>
-                    <th>Cost Bucket</th>
-                    <th>Estimated Cost</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr><td>Registration</td><td>TBD</td></tr>
-                  <tr><td>Activities</td><td>TBD</td></tr>
-                </tbody>
-                <tfoot>
-                  <tr><td>Sample household total</td><td>$640</td></tr>
-                </tfoot>
-              </table>
+              <label for="account-password">Create password
+                <input id="account-password" name="account-password" type="password" autocomplete="new-password" placeholder="Create a secure password" required>
+              </label>
+              <label for="account-password-confirm">Confirm password
+                <input id="account-password-confirm" name="account-password-confirm" type="password" autocomplete="new-password" placeholder="Re-enter password" required>
+              </label>
             </div>
           </div>
 
@@ -218,12 +81,8 @@
             </label>
           </div>
 
-          <div class="acknowledgment">
-            <label><input type="checkbox" name="demo-acknowledgment"> I understand this prototype does not submit registration or payment information.</label>
-          </div>
-
           <div class="button-row">
-            <button class="button primary" type="submit">Submit Prototype Registration</button>
+            <button class="button primary" type="submit">Create Account</button>
             <a class="button secondary" href="login.html">Go to Member Login</a>
           </div>
         </form>
