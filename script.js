@@ -99,23 +99,6 @@ if (paymentForm) {
   });
 }
 
-const memberLoginForm = document.querySelector(".member-login-form");
-if (memberLoginForm) {
-  memberLoginForm.addEventListener("submit", (event) => {
-    if (window.HayesSupabase?.configured) return;
-    event.preventDefault();
-    const email = document.querySelector("#member-email")?.value.trim().toLowerCase();
-    const password = document.querySelector("#member-password")?.value;
-
-    if ((!email && !password) || (email === "family@example.com" && password === "Hayes2028!")) {
-      window.location.href = "member.html";
-      return;
-    }
-
-    alert("Use the sample login: family@example.com / Hayes2028!");
-  });
-}
-
 const photoSubmitForm = document.querySelector(".photo-submit-form");
 if (photoSubmitForm) {
   photoSubmitForm.addEventListener("submit", (event) => {
