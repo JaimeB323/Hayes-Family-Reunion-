@@ -48,6 +48,10 @@ Common updates:
 5. Select the repository root as the publishing folder.
 6. Save, then wait for GitHub Pages to provide the website link.
 
+## Cloudflare Deployment
+
+Cloudflare automatic deployment is configured from the GitHub repository. New commits pushed to `main` will trigger a Cloudflare build and deployment.
+
 ## Future Integrations
 
 This draft now includes the foundation for Supabase authentication, member data, committee/admin data and manual payment tracking. It does not add a payment processor.
