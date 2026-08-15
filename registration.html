@@ -41,10 +41,16 @@
             <h2>Account Login</h2>
             <p class="note">After creating your account, sign in to add your household and reunion information.</p>
             <div class="form-grid account-fields">
-              <label for="account-email">Login email
+              <label for="account-first-name">Account first name
+                <input id="account-first-name" name="account-first-name" type="text" autocomplete="given-name" placeholder="First name" required>
+              </label>
+              <label for="account-last-name">Account last name
+                <input id="account-last-name" name="account-last-name" type="text" autocomplete="family-name" placeholder="Last name" required>
+              </label>
+              <label for="account-email">Account email
                 <input id="account-email" name="account-email" type="email" autocomplete="email" placeholder="name@example.com" required>
               </label>
-              <label for="account-password">Create password
+              <label for="account-password">Password
                 <input id="account-password" name="account-password" type="password" autocomplete="new-password" placeholder="Create a secure password" required>
               </label>
               <label for="account-password-confirm">Confirm password

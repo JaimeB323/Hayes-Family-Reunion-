@@ -10,13 +10,15 @@
   form.addEventListener("submit", async (event) => {
     event.preventDefault();
 
+    const firstName = value("#account-first-name");
+    const lastName = value("#account-last-name");
     const email = value("#account-email");
     const password = document.querySelector("#account-password")?.value || "";
     const confirmPassword = document.querySelector("#account-password-confirm")?.value || "";
     const submitButton = form.querySelector('button[type="submit"]');
 
-    if (!email || !password || !confirmPassword) {
-      alert("Please enter your login email and create a password.");
+    if (!firstName || !lastName || !email || !password || !confirmPassword) {
+      alert("Please enter your first name, last name, account email and password.");
       return;
     }
 
@@ -27,7 +29,16 @@
 
     if (submitButton) submitButton.disabled = true;
 
-    const { data, error } = await supabase.auth.signUp({ email, password });
+    const { data, error } = await supabase.auth.signUp({
+      email,
+      password,
+      options: {
+        data: {
+          first_name: firstName,
+          last_name: lastName
+        }
+      }
+    });
 
     if (error) {
       if (submitButton) submitButton.disabled = false;

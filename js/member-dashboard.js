@@ -220,7 +220,7 @@
         <label>Expected arrival
           <select data-primary-field="expected_arrival">
             <option value="">To be confirmed</option>
-            ${["August 31, 2028", "September 1, 2028", "September 2, 2028", "September 3, 2028"].map((date) => `<option value="${date}"${profile.expected_arrival === date ? " selected" : ""}>${date}</option>`).join("")}
+            ${["Thursday", "Friday", "Saturday"].map((day) => `<option value="${day}"${profile.expected_arrival === day ? " selected" : ""}>${day}</option>`).join("")}
           </select>
         </label>
       </div>
@@ -230,29 +230,51 @@
   function renderPrimaryAccountHolder() {
     const container = dashboard.querySelector("[data-primary-account-holder]");
     const heading = dashboard.querySelector("[data-household-heading]");
+    const panel = container?.closest(".primary-account-holder");
     if (!container) return;
 
     if (!authenticatedUser) {
+      panel?.classList.remove("has-account");
       if (heading) heading.textContent = "Household Account";
       container.innerHTML = "<p>Sign in to manage the primary account holder.</p>";
       return;
     }
 
     if (currentMember) {
-      if (heading) heading.textContent = currentMember.household_name || "Household";
-      container.innerHTML = "";
+      panel?.classList.add("has-account");
+      const accountName = fullName(currentMember) || "Member";
+      if (heading) heading.textContent = `${accountName} Household`;
+      container.innerHTML = `
+        <label class="expected-arrival-control">
+          <span>Expected Arrival</span>
+          <select data-expected-arrival aria-label="Expected arrival day">
+            <option value="">Choose a day</option>
+            ${["Thursday", "Friday", "Saturday"].map((day) => `<option value="${day}"${currentMember.expected_arrival === day ? " selected" : ""}>${day}</option>`).join("")}
+          </select>
+        </label>
+      `;
       return;
     }
 
+    panel?.classList.remove("has-account");
     if (heading) heading.textContent = "Complete Household Setup";
+
+    const metadata = authenticatedUser.user_metadata || {};
+    const firstName = metadata.first_name || "";
+    const lastName = metadata.last_name || "";
+    const setupMember = {
+      first_name: firstName,
+      last_name: lastName,
+      household_name: [firstName, lastName, "Household"].filter(Boolean).join(" ")
+    };
 
     container.innerHTML = `
       <form class="primary-account-form" data-primary-account-form>
-        ${primaryAccountDetails(currentMember)}
+        ${primaryAccountDetails(setupMember)}
         <div class="attendee-row">
-          ${attendeeFields(currentMember, "primary")}
+          ${attendeeFields(setupMember, "primary")}
         </div>
-        <button class="button primary" type="submit">${currentMember ? "Save Primary Account Holder" : "Complete Account Setup"}</button>
+        <button class="button primary" type="submit">Complete Account Setup</button>
       </form>
     `;
   }
@@ -646,6 +668,26 @@
     const subtotal = Number(input.value || 0) * Number(activity?.price || 0);
     const subtotalCell = row.querySelector("[data-activity-subtotal]");
     if (subtotalCell) subtotalCell.textContent = formatCurrency(subtotal);
+  });
+
+  dashboard.addEventListener("change", async (event) => {
+    const arrivalSelect = event.target.closest("[data-expected-arrival]");
+    if (!arrivalSelect || !currentMember) return;
+
+    arrivalSelect.disabled = true;
+    const { error } = await supabase
+      .from("family_members")
+      .update({ expected_arrival: arrivalSelect.value || null })
+      .eq("id", currentMember.id);
+    arrivalSelect.disabled = false;
+
+    if (error) {
+      alert("Expected arrival could not be saved. Please try again.");
+      arrivalSelect.value = currentMember.expected_arrival || "";
+      return;
+    }
+
+    currentMember.expected_arrival = arrivalSelect.value || null;
   });
 
   await loadDashboard();

@@ -30,6 +30,33 @@
   gap: 0.35rem;
 }
 
+.primary-account-holder.has-account {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.primary-account-holder.has-account h2 {
+  margin: 0;
+}
+
+.expected-arrival-control {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+  font-weight: 900;
+  white-space: nowrap;
+}
+
+.expected-arrival-control select {
+  min-width: 150px;
+  border-color: var(--gold);
+  background-color: var(--gold);
+  color: white;
+  font-weight: 900;
+}
+
 .member-actions {
   display: flex;
   flex-wrap: wrap;
@@ -64,6 +91,12 @@
   .primary-account-form .attendee-row,
   .primary-account-details {
     grid-template-columns: 1fr;
+  }
+
+  .primary-account-holder.has-account,
+  .expected-arrival-control {
+    align-items: stretch;
+    flex-direction: column;
   }
 }
 
