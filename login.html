@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Member Login | Hayes Family Reunion</title>
-    <meta name="description" content="Prototype member login page for the Hayes Family Reunion.">
+    <meta name="description" content="Member login page for the Hayes Family Reunion.">
     <link rel="stylesheet" href="styles.css">
   </head>
   <body>
@@ -28,24 +28,24 @@
       <section class="dashboard-hero">
         <p class="eyebrow">Member login</p>
         <h1>Household Account Access</h1>
-        <p class="lead">Use the sample credentials below to preview the Member Portal. Supabase will handle secure accounts later.</p>
+        <p class="lead">Sign in with the email address and password connected to your Hayes Family Reunion account.</p>
       </section>
 
       <section class="panel member-login-panel" aria-labelledby="member-login-title">
         <div>
-          <p class="eyebrow">Prototype access</p>
+          <p class="eyebrow">Account access</p>
           <h2 id="member-login-title">Sign In</h2>
-          <p class="note">Dummy credentials: email <strong>family@example.com</strong>, password <strong>Hayes2028!</strong></p>
+          <p class="note">Enter your account email and password to view your member portal.</p>
         </div>
-        <form class="member-login-form" aria-label="Prototype member login form">
+        <form class="member-login-form" aria-label="Member login form">
           <label for="member-email">Email
-            <input id="member-email" name="member-email" type="email" autocomplete="email" placeholder="family@example.com" value="family@example.com">
+            <input id="member-email" name="member-email" type="email" autocomplete="email" placeholder="you@example.com" required>
           </label>
           <label for="member-password">Password
-            <input id="member-password" name="member-password" type="password" autocomplete="current-password" placeholder="Hayes2028!" value="Hayes2028!">
+            <input id="member-password" name="member-password" type="password" autocomplete="current-password" required>
           </label>
           <button class="button primary" type="submit">Login</button>
-          <button class="button secondary" type="button" data-prototype-alert="Password reset will be available after Supabase authentication is connected.">Forgot Password</button>
+          <button class="button secondary" type="button" data-password-reset>Forgot Password</button>
         </form>
       </section>
     </main>
