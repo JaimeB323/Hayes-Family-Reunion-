@@ -6,6 +6,7 @@
     <title>Member Portal | Hayes Family Reunion</title>
     <meta name="description" content="Member portal for the Hayes Family Reunion.">
     <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="member-portal.css">
   </head>
   <body>
     <a class="skip-link" href="#main">Skip to content</a>
@@ -40,10 +41,17 @@
           <p class="note" data-member-note>Loading household details...</p>
           <div class="mini-grid">
             <span data-member-metric="totalRegistered">Total Registered<strong>Loading</strong></span>
-            <span data-member-metric="status">Status<strong>Loading</strong></span>
-            <span id="balance" data-member-metric="totalDue">Grand total<strong>Loading</strong></span>
+            <span data-member-metric="registrationTotal">Registration Total<strong>Loading</strong></span>
+            <span data-member-metric="activityTotal">Activity Total<strong>Loading</strong></span>
+            <span id="balance" data-member-metric="grandTotal">Grand Total<strong>Loading</strong></span>
             <span data-member-metric="paid">Amount paid<strong>Loading</strong></span>
             <span data-member-metric="balance">Remaining balance<strong>Loading</strong></span>
+          </div>
+          <div class="mini-grid registration-breakdown" aria-label="Registration breakdown">
+            <span data-member-metric="adultCount">Adults<strong>Loading</strong></span>
+            <span data-member-metric="childCount">Children<strong>Loading</strong></span>
+            <span data-member-metric="adultSubtotal">Adult subtotal<strong>Loading</strong></span>
+            <span data-member-metric="childSubtotal">Child subtotal<strong>Loading</strong></span>
           </div>
           <div id="payment" class="button-row">
             <a class="button gold" href="payment.html">Submit Payment</a>
@@ -52,24 +60,65 @@
         </article>
 
         <article class="panel member-registered">
-          <h2>Registered Member</h2>
+          <h2>Family Members</h2>
           <div class="table-wrap">
             <table>
-              <thead><tr><th>First Name</th><th>Last Name</th><th>Registration Type</th><th>T-Shirt Size</th></tr></thead>
+              <thead><tr><th>First Name</th><th>Last Name</th><th>Category</th><th>T-Shirt Size</th><th>Action</th></tr></thead>
               <tbody data-household-members>
-                <tr><td colspan="4">Loading registered family members...</td></tr>
+                <tr><td colspan="5">Loading registered family members...</td></tr>
               </tbody>
             </table>
           </div>
+          <form class="member-inline-form" data-family-member-form>
+            <div class="attendee-row">
+              <label for="family-first-name">First name
+                <input id="family-first-name" name="family-first-name" type="text" required>
+              </label>
+              <label for="family-last-name">Last name
+                <input id="family-last-name" name="family-last-name" type="text" required>
+              </label>
+              <label for="family-category">Category
+                <select id="family-category" name="family-category" required>
+                  <option value="adult">Adult</option>
+                  <option value="child">Child</option>
+                </select>
+              </label>
+              <label for="family-shirt">T-shirt size
+                <select id="family-shirt" name="family-shirt">
+                  <option value="">Not selected</option>
+                  <option>Adult Small</option>
+                  <option>Adult Medium</option>
+                  <option>Adult Large</option>
+                  <option>Adult XL</option>
+                  <option>Adult XXL</option>
+                  <option>Youth Small</option>
+                  <option>Youth Medium</option>
+                  <option>Youth Large</option>
+                  <option>No shirt</option>
+                </select>
+              </label>
+            </div>
+            <button class="button primary" type="submit">Add Family Member</button>
+          </form>
         </article>
 
         <article class="panel member-activities">
-          <h2>Activities Purchased</h2>
+          <h2>Activities</h2>
+          <h3>Available Activities</h3>
           <div class="table-wrap">
             <table>
-              <thead><tr><th>Activity Name</th><th>Date</th><th>Time</th><th>Location</th><th>Quantity</th></tr></thead>
+              <thead><tr><th>Activity</th><th>Date</th><th>Time</th><th>Location</th><th>Price</th><th>Quantity</th><th>Subtotal</th><th>Action</th></tr></thead>
+              <tbody data-available-activities>
+                <tr><td colspan="8">Loading available activities...</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <h3>Activities Purchased</h3>
+          <div class="table-wrap">
+            <table>
+              <thead><tr><th>Activity Name</th><th>Date</th><th>Time</th><th>Location</th><th>Quantity</th><th>Subtotal</th></tr></thead>
               <tbody data-member-activities>
-                <tr><td colspan="5">Loading registered activities...</td></tr>
+                <tr><td colspan="6">Loading registered activities...</td></tr>
               </tbody>
             </table>
           </div>
