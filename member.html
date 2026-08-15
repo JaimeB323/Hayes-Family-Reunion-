@@ -3,8 +3,8 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Member Portal Prototype | Hayes Family Reunion</title>
-    <meta name="description" content="Fictional member portal prototype for the Hayes Family Reunion.">
+    <title>Member Portal | Hayes Family Reunion</title>
+    <meta name="description" content="Member portal for the Hayes Family Reunion.">
     <link rel="stylesheet" href="styles.css">
   </head>
   <body>
@@ -27,27 +27,27 @@
     <main id="main">
       <section class="hero short-hero">
         <div class="hero-copy">
-          <p class="eyebrow">Demonstration data only</p>
+          <p class="eyebrow">Member dashboard</p>
           <h1>Member Portal</h1>
-          <p class="tagline">A secure household dashboard preview for registration, payments and reunion details.</p>
+          <p class="tagline">A secure household dashboard for registration, payments and reunion details.</p>
         </div>
         <figure class="hero-photo"><img src="assets/charleston-hero.webp" alt="Charleston street scene for the member portal"></figure>
       </section>
 
       <section class="section dashboard-grid member-dashboard" aria-label="Member account summary" data-member-dashboard>
         <article class="panel member-summary">
-          <h2 data-member-name>Marsha Hayes Thompson</h2>
-          <p class="note" data-member-note>Primary contact for this fictional household.</p>
+          <h2 data-member-name>Loading account...</h2>
+          <p class="note" data-member-note>Loading household details...</p>
           <div class="mini-grid">
-            <span data-member-metric="totalRegistered">Total Registered<strong>6</strong></span>
-            <span data-member-metric="status">Status<strong>Confirmed</strong></span>
-            <span id="balance" data-member-metric="totalDue">Grand total<strong>$640</strong></span>
-            <span data-member-metric="paid">Amount paid<strong>$400</strong></span>
-            <span data-member-metric="balance">Remaining balance<strong>$240</strong></span>
+            <span data-member-metric="totalRegistered">Total Registered<strong>Loading</strong></span>
+            <span data-member-metric="status">Status<strong>Loading</strong></span>
+            <span id="balance" data-member-metric="totalDue">Grand total<strong>Loading</strong></span>
+            <span data-member-metric="paid">Amount paid<strong>Loading</strong></span>
+            <span data-member-metric="balance">Remaining balance<strong>Loading</strong></span>
           </div>
           <div id="payment" class="button-row">
             <a class="button gold" href="payment.html">Submit Payment</a>
-            <button class="button secondary" type="button" data-prototype-alert="Receipt downloads are placeholders in this prototype.">Download Receipt</button>
+            <a class="button secondary" href="#payment-history">Payment History</a>
           </div>
         </article>
 
@@ -56,13 +56,8 @@
           <div class="table-wrap">
             <table>
               <thead><tr><th>First Name</th><th>Last Name</th><th>Registration Type</th><th>T-Shirt Size</th></tr></thead>
-              <tbody data-member-activities>
-                <tr><td>Marsha</td><td>Hayes Thompson</td><td>Adult</td><td>Adult Medium</td></tr>
-                <tr><td>Andre</td><td>Thompson</td><td>Adult</td><td>Adult Large</td></tr>
-                <tr><td>Janelle</td><td>Thompson</td><td>Youth</td><td>Youth Medium</td></tr>
-                <tr><td>Miles</td><td>Thompson</td><td>Youth</td><td>Youth Small</td></tr>
-                <tr><td>Evelyn</td><td>Hayes</td><td>Adult</td><td>Adult Large</td></tr>
-                <tr><td>Caleb</td><td>Thompson</td><td>Youth</td><td>No shirt</td></tr>
+              <tbody data-household-members>
+                <tr><td colspan="4">Loading registered family members...</td></tr>
               </tbody>
             </table>
           </div>
@@ -73,24 +68,20 @@
           <div class="table-wrap">
             <table>
               <thead><tr><th>Activity Name</th><th>Date</th><th>Time</th><th>Location</th><th>Quantity</th></tr></thead>
-              <tbody data-payment-history>
-                <tr><td>Welcome Reception</td><td>August 31, 2028</td><td>TBD</td><td>TBD</td><td>5</td></tr>
-                <tr><td>Family Picnic</td><td>September 2, 2028</td><td>TBD</td><td>TBD</td><td>6</td></tr>
-                <tr><td>Celebration Dinner</td><td>September 2, 2028</td><td>TBD</td><td>TBD</td><td>5</td></tr>
-                <tr><td>Farewell Brunch</td><td>September 3, 2028</td><td>TBD</td><td>TBD</td><td>6</td></tr>
+              <tbody data-member-activities>
+                <tr><td colspan="5">Loading registered activities...</td></tr>
               </tbody>
             </table>
           </div>
         </article>
 
-        <article class="panel member-payments">
+        <article id="payment-history" class="panel member-payments">
           <h2>Payment History</h2>
           <div class="table-wrap">
             <table>
               <thead><tr><th>Date</th><th>Description</th><th>Amount</th><th>Status</th></tr></thead>
-              <tbody>
-                <tr><td>Demo date</td><td>Initial household deposit</td><td>$250</td><td>Demo paid</td></tr>
-                <tr><td>Demo date</td><td>Second installment</td><td>$150</td><td>Demo paid</td></tr>
+              <tbody data-payment-history>
+                <tr><td colspan="4">Loading payment history...</td></tr>
               </tbody>
             </table>
           </div>
